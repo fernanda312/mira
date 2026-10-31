@@ -58,3 +58,7 @@ body{background:linear-gradient(to bottom,#000000 0%,#0b3d2e 100%)!important;bac
 body,h1,h2,h3,h4,p,li,a,.site-nav a,.mira-wordmark,.hero-title,.hero-support,.mira-work-card h3,.mira-work-card p{color:#f2ede3!important}
 .mira-work-type,.mira-details li{color:rgba(242,237,227,.75)!important;border-top-color:rgba(242,237,227,.25)!important}
 .mira-work-card{border-top-color:rgba(242,237,227,.25)!important}
+
+/* MIRA fix 2026-10-31 (scoped owner edit): whole-site background video. */
+.mira-bg-video{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;z-index:0!important;pointer-events:none!important}
+.shell-frame{position:relative!important;z-index:1!important}
