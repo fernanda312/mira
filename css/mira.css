@@ -171,3 +171,100 @@ section#intro.chapter--hero, #intro.chapter--hero { padding:0!important; margin:
 .mira-logos-group img.mira-logo,.mira-logos img.mira-logo{height:60px!important;width:auto!important;max-width:none!important;object-fit:contain!important;background:transparent!important;border:none!important;box-shadow:none!important;flex-shrink:0!important}
 @keyframes mira-logos-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .mira-logos:hover .mira-logos-track,.mira-logos:focus .mira-logos-track,.mira-logos:active .mira-logos-track,.mira-logos:focus-within .mira-logos-track,.mira-logos-track:hover,.mira-logos-track:active{animation-play-state:running!important}
+
+/* OWNER CORRECTION 2026-11-01 — logos extreme zoom + hero border layer.
+   Scoped fixes only; nothing else in this file is changed. */
+
+/* 1. LOGOS MARQUEE — small, uniform, fully visible, no zoom, no crop.
+   The 60px rule above was being beaten in practice (cached/old CSS and
+   generic img rules), so this block restates it at 56px with every
+   competing dimension neutralised, for every selector form used. */
+section.mira-logos img,
+.mira-logos img,
+.mira-logos-track img,
+.mira-logos-group img,
+.mira-logos-group img.mira-logo,
+.mira-logos img.mira-logo {
+  height: 56px !important;
+  max-height: 56px !important;
+  min-height: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  flex: none !important;
+  flex-shrink: 0 !important;
+  object-fit: contain !important;
+  display: block !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.mira-logos-track {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: max-content !important;
+  overflow: visible !important;
+}
+.mira-logos-group {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex: none !important;
+  flex-shrink: 0 !important;
+  gap: 3rem !important;
+  padding-right: 3rem !important;
+}
+.mira-logos {
+  overflow: hidden !important;
+}
+
+/* 2. HERO FULL-BLEED — break out of every parent padding/max-width
+   container (shell-content, home-chapters, chapter padding) so the image
+   runs edge to edge with no side/top border layer and no background
+   video showing around it. The original .chapter--hero rule added
+   padding-block-start: calc(100svh - 75svh) and place-items:center,
+   which is what created the inset/border look; both are cancelled here.
+   Hero contains ONLY the MIRA image; no text, buttons or decorations
+   are added. */
+section#intro.chapter--hero,
+#intro.chapter--hero,
+.chapter--hero#intro {
+  width: 100vw !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  padding-block: 0 !important;
+  padding-block-start: 0 !important;
+  padding-block-end: 0 !important;
+  padding-inline: 0 !important;
+  min-height: 0 !important;
+  display: block !important;
+  place-items: normal !important;
+  border: none !important;
+  outline: none !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  box-sizing: border-box !important;
+}
+section#intro.chapter--hero img,
+#intro img {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  border: none !important;
+  outline: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+}
