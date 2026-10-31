@@ -2,11 +2,11 @@
 .mira-wordmark{font-family:Georgia,serif;letter-spacing:.32em;font-weight:600;font-size:1.1rem}
 .mira-hero{margin:2.5rem auto;max-width:72rem;padding:0 1.5rem}
 .mira-hero img{object-fit:contain!important;width:100%;height:auto;display:block;background:transparent}
-.project-media{background:#fff!important}
-.project-media .mira-card-img,.project-media img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:72vh!important;display:block;background:#fff}
+.project-media{background:#000000!important}
+.project-media .mira-card-img,.project-media img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:72vh!important;display:block;background:#000000}
 .about img{object-fit:contain!important}
 .mira-details{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1.5rem}
-.mira-details li{border-top:1px solid rgba(0,0,0,.12);padding-top:1rem}
+.mira-details li{border-top:1px solid #ffffff;padding-top:1rem}
 .mira-details p{margin:.3rem 0 0}
 
 /* MIRA fix 2026-10-31: calm static work grid — no scroll-linked fading,
@@ -19,9 +19,9 @@
 .mira-work h2{margin:0 0 .5rem}
 .mira-work-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem 2rem;margin-top:2rem}
 @media (max-width:700px){.mira-work-grid{grid-template-columns:1fr}}
-.mira-work-card{background:#fff;border-top:1px solid rgba(0,0,0,.12);padding-top:1rem}
-.mira-work-card img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:60vh!important;display:block;background:#fff}
-.mira-work-type{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:#777;margin:1rem 0 .3rem}
+.mira-work-card{background:#000000;border-top:1px solid #ffffff;padding-top:1rem}
+.mira-work-card img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:60vh!important;display:block;background:#000000}
+.mira-work-type{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:#ffffff;margin:1rem 0 .3rem}
 .mira-work-card h3{margin:0 0 .3rem}
 .mira-work-card p{margin:.3rem 0 0}
 .mira-sobre-figure{margin:2rem 0 0}
@@ -55,9 +55,9 @@ body{background:linear-gradient(to bottom,#000000 0%,#0b3d2e 100%)!important;bac
 .shell-frame,.shell-content,.home-v2-root,.home-chapters,.chapter,.mira-work,.mira-work-card,.project,.project-frame,main,header.identity-rail{background:transparent!important;background-color:transparent!important}
 /* Readability only: dark text on the dark gradient becomes light cream.
    Wording, fonts and layout unchanged. */
-body,h1,h2,h3,h4,p,li,a,.site-nav a,.mira-wordmark,.hero-title,.hero-support,.mira-work-card h3,.mira-work-card p{color:#f2ede3!important}
-.mira-work-type,.mira-details li{color:rgba(242,237,227,.75)!important;border-top-color:rgba(242,237,227,.25)!important}
-.mira-work-card{border-top-color:rgba(242,237,227,.25)!important}
+body,h1,h2,h3,h4,p,li,a,.site-nav a,.mira-wordmark,.hero-title,.hero-support,.mira-work-card h3,.mira-work-card p{color:#ffffff!important}
+.mira-work-type,.mira-details li{color:#ffffff!important;border-top-color:#ffffff!important}
+.mira-work-card{border-top-color:#ffffff!important}
 
 /* MIRA fix 2026-10-31 (scoped owner edit): whole-site background video. */
 .mira-bg-video{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;z-index:0!important;pointer-events:none!important}
@@ -66,3 +66,45 @@ body,h1,h2,h3,h4,p,li,a,.site-nav a,.mira-wordmark,.hero-title,.hero-support,.mi
 /* Fix 2026-10-31: new "O que fazemos" section — same clean work-card style, media whole, no zoom, no crop */
 .mira-fazemos-card img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:none!important;display:block;background:transparent!important}
 .mira-fazemos-card video{object-fit:contain!important;width:100%!important;height:auto!important;max-height:none!important;display:block;background:transparent!important}
+
+/* MIRA 2026-10-31 (scoped owner edit): Trabalhos carousel + brands strip,
+   pure white text on pure black panels. No rushing, only these rules. */
+
+/* 1. Trabalhos carousel: automatic, infinite, NEVER pauses on click/touch/hover/focus. */
+#trabalhos{margin-bottom:0!important}
+.mira-carousel{overflow:hidden!important;width:100%!important;background:#000000!important;margin-top:2rem!important}
+.mira-carousel-track{display:flex!important;width:max-content!important;animation:mira-carousel-scroll 48s linear infinite!important;animation-play-state:running!important}
+.mira-carousel-group{display:flex!important;flex-shrink:0!important}
+.mira-carousel-card{flex:0 0 340px!important;width:340px!important;max-width:82vw!important;margin-right:2rem!important;background:#000000!important;border-top:1px solid #ffffff!important;padding-top:1rem!important}
+.mira-carousel-card img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:none!important;display:block!important;background:#000000!important}
+@keyframes mira-carousel-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* Explicitly never pause: hover, focus, active, touch or click. No JS pause handlers are added. */
+.mira-carousel:hover .mira-carousel-track,.mira-carousel:focus .mira-carousel-track,.mira-carousel:active .mira-carousel-track,.mira-carousel:focus-within .mira-carousel-track,.mira-carousel-track:hover,.mira-carousel-track:active{animation-play-state:running!important}
+
+/* 5. Brands strip: automatic, infinite, never pauses, elegant serif, white on black. */
+.mira-brands{overflow:hidden!important;width:100%!important;background:#000000!important;margin:0!important;padding:1.5rem 0!important;border-top:1px solid #ffffff!important;border-bottom:1px solid #ffffff!important}
+.mira-brands-track{display:flex!important;width:max-content!important;animation:mira-brands-scroll 32s linear infinite!important;animation-play-state:running!important}
+.mira-brands-group{display:flex!important;flex-shrink:0!important;align-items:center!important}
+.mira-brand{font-family:Georgia,serif!important;font-size:1.4rem!important;letter-spacing:.12em!important;color:#ffffff!important;white-space:nowrap!important;padding:0 1.5rem!important}
+.mira-brand::after{content:"·";color:#ffffff!important;padding-left:3rem!important}
+@keyframes mira-brands-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mira-brands:hover .mira-brands-track,.mira-brands:focus .mira-brands-track,.mira-brands:active .mira-brands-track,.mira-brands:focus-within .mira-brands-track,.mira-brands-track:hover,.mira-brands-track:active{animation-play-state:running!important}
+
+/* 2. Remaining sections pulled up directly after the strips, no extra gaps. */
+#fazemos{margin-top:0!important}
+
+/* 4. Menu button: top-right corner, icon only, pure white icon on pure black. */
+.menu-toggle{display:flex!important;justify-content:center!important;align-items:center!important;position:fixed!important;top:1rem!important;right:1rem!important;z-index:999!important;background:#000000!important;color:#ffffff!important;border:0!important;pointer-events:auto!important}
+.menu-toggle svg,.menu-toggle-icon{color:#ffffff!important;stroke:#ffffff!important}
+.menu-sheet{background:#000000!important}
+
+/* 6. Colours 100%: pure white text, pure black panels, no cream, no grey, no muted text. */
+body,h1,h2,h3,h4,h5,h6,p,li,a,span,small,strong,em,figcaption,blockquote,cite,label,button,.hero-title,.hero-support,.mira-work-card h3,.mira-work-card p,.mira-work-type,.mira-brand{color:#ffffff!important;opacity:1!important}
+a,a:visited,a:hover,a:active{color:#ffffff!important}
+.hero-title .claim-accent{background-image:none!important;background:none!important;color:#ffffff!important;-webkit-text-fill-color:#ffffff!important}
+.mira-work-card,.mira-carousel-card,.mira-brands,header.identity-rail,.menu-sheet,.menu-toggle{background:#000000!important}
+.mira-work-card,.mira-carousel-card{border-top-color:#ffffff!important}
+.mira-work-type{color:#ffffff!important}
+/* Section containers stay transparent so the kept background video and its
+   black-to-dark-green gradient fallback remain visible in the gaps; every
+   actual panel (cards, header, strips, menu) above is solid #000000. */
