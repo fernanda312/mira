@@ -1,0 +1,10 @@
+/* MIRA — clean, minimalist, chic: generous space, no zoom on card images. */
+.mira-wordmark{font-family:Georgia,serif;letter-spacing:.32em;font-weight:600;font-size:1.1rem}
+.mira-hero{margin:2.5rem auto;max-width:72rem;padding:0 1.5rem}
+.mira-hero img{object-fit:contain!important;width:100%;height:auto;max-height:72vh;display:block;background:#fff}
+.project-media{background:#fff!important}
+.project-media .mira-card-img,.project-media img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:72vh!important;display:block;background:#fff}
+.about img{object-fit:contain!important}
+.mira-details{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1.5rem}
+.mira-details li{border-top:1px solid rgba(0,0,0,.12);padding-top:1rem}
+.mira-details p{margin:.3rem 0 0}
