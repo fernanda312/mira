@@ -8,3 +8,21 @@
 .mira-details{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1.5rem}
 .mira-details li{border-top:1px solid rgba(0,0,0,.12);padding-top:1rem}
 .mira-details p{margin:.3rem 0 0}
+
+/* MIRA fix 2026-10-31: calm static work grid — no scroll-linked fading,
+   no intro-card slide, no ambient backdrop, no faded-out chapters. */
+.ambient-backdrop{display:none!important}
+.home-chapters > section#marca,.home-chapters > section#aplicacao,.home-chapters > section#website,.home-chapters > section#editorial{display:none!important}
+.project,#about,.resume,.contact,.project-frame,.chapter,.chapter--hero+.chapter .project{animation:none!important;opacity:1!important;visibility:visible!important;transform:none!important}
+.home-chapters .is-faded-out,.is-faded-out{opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+.mira-work{max-width:72rem;margin:2.5rem auto;padding:0 1.5rem;width:100%}
+.mira-work h2{margin:0 0 .5rem}
+.mira-work-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem 2rem;margin-top:2rem}
+@media (max-width:700px){.mira-work-grid{grid-template-columns:1fr}}
+.mira-work-card{background:#fff;border-top:1px solid rgba(0,0,0,.12);padding-top:1rem}
+.mira-work-card img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:60vh!important;display:block;background:#fff}
+.mira-work-type{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:#777;margin:1rem 0 .3rem}
+.mira-work-card h3{margin:0 0 .3rem}
+.mira-work-card p{margin:.3rem 0 0}
+.mira-sobre-figure{margin:2rem 0 0}
+.mira-sobre-figure img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:60vh!important;display:block;background:#fff}
