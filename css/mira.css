@@ -157,3 +157,9 @@ header.identity-rail{background:transparent!important;background-color:transpare
 /* Carousel keeps running, never pauses (unchanged behaviour). */
 .mira-carousel-track{animation:mira-carousel-scroll 48s linear infinite!important;animation-play-state:running!important}
 .mira-carousel:hover .mira-carousel-track,.mira-carousel:focus .mira-carousel-track,.mira-carousel:active .mira-carousel-track,.mira-carousel:focus-within .mira-carousel-track,.mira-carousel-track:hover,.mira-carousel-track:active{animation-play-state:running!important}
+
+/* MIRA hero 2026-11-01 (scoped owner instruction): hero is ONLY the sent
+   image, vertical, no borders, no frame, no padding, no gaps, whole image,
+   no zoom, no cut. Nothing else in the hero. */
+section#intro.chapter--hero, #intro.chapter--hero { padding:0!important; margin:0!important; border:none!important; outline:none!important; background:#000000!important; background-color:#000000!important; max-width:none!important; width:100%!important; }
+#intro img { display:block!important; width:100%!important; height:auto!important; object-fit:contain!important; border:none!important; outline:none!important; margin:0!important; padding:0!important; max-height:none!important; background:#000000!important; background-color:#000000!important; }
