@@ -26,3 +26,18 @@
 .mira-work-card p{margin:.3rem 0 0}
 .mira-sobre-figure{margin:2rem 0 0}
 .mira-sobre-figure img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:60vh!important;display:block;background:#fff}
+
+/* MIRA fix 2026-10-31 (scoped owner edit): new hero / next-section images,
+   shown fully, and no fast section pulling. */
+.mira-hero img[src*="mira-hero-paleta.jpg"]{object-fit:contain!important;width:100%!important;height:auto!important;max-height:72vh!important;display:block;background:#fff}
+.mira-work-intro{margin:0 0 2rem}
+.mira-work-intro img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:72vh!important;display:block;background:#fff}
+/* Remaining fast-pull behaviour: mandatory vertical scroll-snap in the
+   original stylesheet made scrolling and anchor clicks jump/snap past
+   sections, and .hero-copy still faded/lifted on a view() timeline. */
+html:has(.home-v2-root){scroll-snap-type:none!important}
+html,body{scroll-snap-type:none!important}
+section,#intro,#play,#about,#resume,#contact,.chapter{scroll-snap-align:none!important}
+.hero-copy{animation:none!important;animation-timeline:none!important;view-timeline-name:none!important;opacity:1!important;visibility:visible!important;transform:none!important}
+#contact{view-timeline-name:none!important}
+.contact .claim-accent{animation:none!important;animation-timeline:none!important;opacity:1!important;transform:none!important}
