@@ -1,7 +1,7 @@
 /* MIRA — clean, minimalist, chic: generous space, no zoom on card images. */
 .mira-wordmark{font-family:Georgia,serif;letter-spacing:.32em;font-weight:600;font-size:1.1rem}
 .mira-hero{margin:2.5rem auto;max-width:72rem;padding:0 1.5rem}
-.mira-hero img{object-fit:contain!important;width:100%;height:auto;max-height:72vh;display:block;background:#fff}
+.mira-hero img{object-fit:contain!important;width:100%;height:auto;display:block;background:transparent}
 .project-media{background:#fff!important}
 .project-media .mira-card-img,.project-media img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:72vh!important;display:block;background:#fff}
 .about img{object-fit:contain!important}
@@ -29,9 +29,9 @@
 
 /* MIRA fix 2026-10-31 (scoped owner edit): new hero / next-section images,
    shown fully, and no fast section pulling. */
-.mira-hero img[src*="mira-hero-paleta.jpg"]{object-fit:contain!important;width:100%!important;height:auto!important;max-height:72vh!important;display:block;background:#fff}
+.mira-hero img[src*="mira-hero-paleta.jpg"]{object-fit:contain!important;width:100%!important;height:auto!important;max-height:none!important;display:block;background:transparent!important}
 .mira-work-intro{margin:0 0 2rem}
-.mira-work-intro img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:72vh!important;display:block;background:#fff}
+.mira-work-intro img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:none!important;display:block;background:transparent!important}
 /* Remaining fast-pull behaviour: mandatory vertical scroll-snap in the
    original stylesheet made scrolling and anchor clicks jump/snap past
    sections, and .hero-copy still faded/lifted on a view() timeline. */
@@ -41,3 +41,20 @@ section,#intro,#play,#about,#resume,#contact,.chapter{scroll-snap-align:none!imp
 .hero-copy{animation:none!important;animation-timeline:none!important;view-timeline-name:none!important;opacity:1!important;visibility:visible!important;transform:none!important}
 #contact{view-timeline-name:none!important}
 .contact .claim-accent{animation:none!important;animation-timeline:none!important;opacity:1!important;transform:none!important}
+
+/* MIRA fix 2026-10-31 (scoped owner edit): large hero / next-section images
+   and black-to-dark-green whole-site background. No cropping anywhere. */
+.mira-hero{max-width:none!important;width:100%!important;padding:0!important;margin:0!important}
+.mira-hero img,.mira-hero img[src*="mira-hero-paleta.jpg"]{object-fit:contain!important;width:100%!important;height:auto!important;max-height:none!important;display:block;background:transparent!important}
+.mira-work-intro{margin:0 0 2rem!important;width:100%!important;max-width:none!important}
+.mira-work-intro img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:none!important;display:block;background:transparent!important}
+/* Whole-site background: black at the top fading into dark green. */
+html{background:#0b3d2e!important}
+body{background:linear-gradient(to bottom,#000000 0%,#0b3d2e 100%)!important;background-attachment:fixed!important}
+/* Remove solid section/panel backgrounds that would hide the gradient. */
+.shell-frame,.shell-content,.home-v2-root,.home-chapters,.chapter,.mira-work,.mira-work-card,.project,.project-frame,main,header.identity-rail{background:transparent!important;background-color:transparent!important}
+/* Readability only: dark text on the dark gradient becomes light cream.
+   Wording, fonts and layout unchanged. */
+body,h1,h2,h3,h4,p,li,a,.site-nav a,.mira-wordmark,.hero-title,.hero-support,.mira-work-card h3,.mira-work-card p{color:#f2ede3!important}
+.mira-work-type,.mira-details li{color:rgba(242,237,227,.75)!important;border-top-color:rgba(242,237,227,.25)!important}
+.mira-work-card{border-top-color:rgba(242,237,227,.25)!important}
