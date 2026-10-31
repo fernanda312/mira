@@ -62,3 +62,7 @@ body,h1,h2,h3,h4,p,li,a,.site-nav a,.mira-wordmark,.hero-title,.hero-support,.mi
 /* MIRA fix 2026-10-31 (scoped owner edit): whole-site background video. */
 .mira-bg-video{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;z-index:0!important;pointer-events:none!important}
 .shell-frame{position:relative!important;z-index:1!important}
+
+/* Fix 2026-10-31: new "O que fazemos" section — same clean work-card style, media whole, no zoom, no crop */
+.mira-fazemos-card img{object-fit:contain!important;width:100%!important;height:auto!important;max-height:none!important;display:block;background:transparent!important}
+.mira-fazemos-card video{object-fit:contain!important;width:100%!important;height:auto!important;max-height:none!important;display:block;background:transparent!important}
