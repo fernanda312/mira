@@ -163,3 +163,11 @@ header.identity-rail{background:transparent!important;background-color:transpare
    no zoom, no cut. Nothing else in the hero. */
 section#intro.chapter--hero, #intro.chapter--hero { padding:0!important; margin:0!important; border:none!important; outline:none!important; background:#000000!important; background-color:#000000!important; max-width:none!important; width:100%!important; }
 #intro img { display:block!important; width:100%!important; height:auto!important; object-fit:contain!important; border:none!important; outline:none!important; margin:0!important; padding:0!important; max-height:none!important; background:#000000!important; background-color:#000000!important; }
+
+/* Logos marquee: transparent, seamless, never pauses */
+.mira-logos{overflow:hidden!important;width:100%!important;background:transparent!important;background-color:transparent!important;margin:0!important;padding:1.5rem 0!important;border:none!important}
+.mira-logos-track{display:flex!important;width:max-content!important;background:transparent!important;animation:mira-logos-scroll 36s linear infinite!important;animation-play-state:running!important}
+.mira-logos-group{display:flex!important;flex-shrink:0!important;align-items:center!important;gap:4rem!important;padding-right:4rem!important;background:transparent!important}
+.mira-logos-group img.mira-logo,.mira-logos img.mira-logo{height:60px!important;width:auto!important;max-width:none!important;object-fit:contain!important;background:transparent!important;border:none!important;box-shadow:none!important;flex-shrink:0!important}
+@keyframes mira-logos-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mira-logos:hover .mira-logos-track,.mira-logos:focus .mira-logos-track,.mira-logos:active .mira-logos-track,.mira-logos:focus-within .mira-logos-track,.mira-logos-track:hover,.mira-logos-track:active{animation-play-state:running!important}
