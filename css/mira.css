@@ -108,3 +108,52 @@ a,a:visited,a:hover,a:active{color:#ffffff!important}
 /* Section containers stay transparent so the kept background video and its
    black-to-dark-green gradient fallback remain visible in the gaps; every
    actual panel (cards, header, strips, menu) above is solid #000000. */
+
+/* MIRA correction 2026-11-01 (scoped owner correction): cards are NOT black.
+   Only the brands letter-scroll stays black. Black writings return on light
+   cards. White text stays ONLY on black / over the dark background video. */
+
+/* 1. Content cards: white/light background, black text — never #000000. */
+.mira-work-card,.mira-carousel-card,.mira-fazemos-card{background:#ffffff!important;background-color:#ffffff!important;border-top:1px solid #000000!important;padding:1rem 1rem 1.25rem!important}
+.mira-carousel{background:transparent!important;background-color:transparent!important}
+.mira-work-card img,.mira-carousel-card img,.mira-fazemos-card img,.mira-fazemos-card video{background:#ffffff!important;background-color:#ffffff!important}
+/* Card text back to black (the owner never asked to remove black writings). */
+.mira-work-card h3,.mira-carousel-card h3,.mira-fazemos-card h3,.mira-work-card p,.mira-carousel-card p,.mira-fazemos-card p,.mira-work-card .mira-work-type,.mira-carousel-card .mira-work-type,.mira-fazemos-card .mira-work-type{color:#000000!important;opacity:1!important}
+/* 2. Distinct typography and placement inside cards: small letter-spaced
+   category, larger serif title, smaller regular description — never all
+   the same size, weight and colour jumbled together. */
+.mira-work-card .mira-work-type,.mira-carousel-card .mira-work-type,.mira-fazemos-card .mira-work-type{font-size:.75rem!important;letter-spacing:.22em!important;text-transform:uppercase!important;font-weight:600!important;line-height:1.4!important;margin:1rem 0 .5rem!important}
+.mira-work-card h3,.mira-carousel-card h3,.mira-fazemos-card h3{font-family:Georgia,serif!important;font-size:1.6rem!important;font-weight:600!important;line-height:1.2!important;margin:0 0 .5rem!important}
+.mira-work-card p,.mira-carousel-card p,.mira-fazemos-card p{font-size:1rem!important;font-weight:400!important;line-height:1.55!important;margin:.4rem 0 0!important}
+/* Other content list-cards (Pormenores): light card, black text, same hierarchy. */
+.mira-details li{background:#ffffff!important;background-color:#ffffff!important;color:#000000!important;border-top:1px solid #000000!important;padding:1rem 1.25rem!important}
+.mira-details li p,.mira-details li strong{color:#000000!important}
+/* Header rail: transparent over the video (not a black panel); wordmark white over video. */
+header.identity-rail{background:transparent!important;background-color:transparent!important}
+.mira-wordmark{color:#ffffff!important}
+/* Section headings over the dark video stay white — the stated exception.
+   Their hierarchy is kept distinct from body text. */
+.mira-work h2,#fazemos h2{font-family:Georgia,serif!important;font-size:2rem!important;font-weight:600!important;line-height:1.2!important;color:#ffffff!important}
+.mira-work>p,#fazemos>p{font-size:1.05rem!important;font-weight:400!important;line-height:1.55!important;color:#ffffff!important}
+/* 2b. Buttons must look like buttons: solid, padded, separated from body
+   text. The visible cards contain no in-card links/buttons, so this applies
+   to the site's actual buttons: contact pill, menu contact link, skip link. */
+.contact-pill{background:#000000!important;background-color:#000000!important;color:#ffffff!important;border:2px solid #000000!important;border-radius:999px!important;padding:.9rem 1.5rem!important;margin-top:2rem!important;box-shadow:none!important}
+.contact-pill .contact-pill-text,.contact-pill .contact-pill-rest,.contact-pill .contact-pill-done{color:#ffffff!important}
+.contact-pill-icon{background:#ffffff!important;color:#000000!important}
+.menu-contact-mail{background:#ffffff!important;background-color:#ffffff!important;color:#000000!important;border-radius:999px!important;padding:.8rem 1.25rem!important;display:inline-flex!important;font-weight:600!important;text-decoration:none!important}
+.menu-contact-mail span{color:#000000!important}
+.skip-link{background:#000000!important;color:#ffffff!important;padding:.6rem 1rem!important;border-radius:999px!important}
+/* Menu toggle stays a black button with a white icon only (no visible word). */
+.menu-toggle{background:#000000!important;color:#ffffff!important}
+/* 3. Brands strip: the ONLY black content strip, white letters, seamless loop
+   with soft edge fade so no end/seam is ever visible. Track is two identical
+   groups and animates exactly -50%; it never pauses on click/touch. */
+.mira-brands{background:#000000!important;background-color:#000000!important;-webkit-mask-image:linear-gradient(to right,transparent 0,#000000 8%,#000000 92%,transparent 100%)!important;mask-image:linear-gradient(to right,transparent 0,#000000 8%,#000000 92%,transparent 100%)!important}
+.mira-brands-track{animation:mira-brands-scroll 32s linear infinite!important;animation-play-state:running!important}
+.mira-brands:hover .mira-brands-track,.mira-brands:focus .mira-brands-track,.mira-brands:active .mira-brands-track,.mira-brands:focus-within .mira-brands-track,.mira-brands-track:hover,.mira-brands-track:active{animation-play-state:running!important}
+.mira-brand{color:#ffffff!important}
+.mira-brand::after{color:#ffffff!important}
+/* Carousel keeps running, never pauses (unchanged behaviour). */
+.mira-carousel-track{animation:mira-carousel-scroll 48s linear infinite!important;animation-play-state:running!important}
+.mira-carousel:hover .mira-carousel-track,.mira-carousel:focus .mira-carousel-track,.mira-carousel:active .mira-carousel-track,.mira-carousel:focus-within .mira-carousel-track,.mira-carousel-track:hover,.mira-carousel-track:active{animation-play-state:running!important}
