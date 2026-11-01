@@ -444,9 +444,41 @@
       return "A partir de " + amount + " MT" + (item.monthly ? "/mês" : "");
     }
     while (ul.firstChild) ul.removeChild(ul.firstChild);
+    var defaultMedia = {
+      "identidade de marca": "images/servico-merch.jpg",
+      "produto digital": "images/mira-app.jpg",
+      "websites": "images/mira-site.jpg",
+      "editorial": "images/servico-september.jpg",
+      "embalagem": "images/servico-saint.jpg",
+      "redes sociais": "images/servico-burger.jpg",
+      "catálogo": "images/servico-global.jpg",
+      "livraria": "media/mira-video-3.mp4",
+      "edição e publicação de livros": "media/mira-video-1.mp4",
+      "papelaria": "images/servico-pens.jpg",
+      "material escolar": "images/servico-shapeiva.jpg",
+      "direcção de arte": "images/servico-hand.jpg",
+      "acompanhamento e evolução do site": "images/servico-tyler.jpg"
+    };
     valid.forEach(function (item) {
       var li = document.createElement("li");
       li.className = "mira-home-service";
+      /* Imagem/vídeo do próprio serviço no painel (campo img; src aceite
+         também), senão a imagem/vídeo por defeito da página de serviços. */
+      var mediaSrc = (isStr(item.img) && item.img) || (isStr(item.src) && item.src) ||
+        defaultMedia[item.name.trim().toLowerCase()] || "";
+      if (mediaSrc) {
+        if (isVideo({ src: mediaSrc })) {
+          var vid = document.createElement("video");
+          vid.className = "mira-home-service-media";
+          vid.src = mediaSrc;
+          vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true;
+          vid.preload = "metadata";
+          vid.setAttribute("aria-label", item.name);
+          li.appendChild(vid);
+        } else {
+          li.appendChild(makeImg(mediaSrc, item.name, "mira-home-service-media"));
+        }
+      }
       var div = document.createElement("div");
       var st = document.createElement("strong");
       st.textContent = item.name;
