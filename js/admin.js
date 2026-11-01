@@ -1,9 +1,4 @@
-/* MIRA Admin — guarda tudo neste navegador (localStorage).
-   Imagens por ficheiro viram data URLs e ficam no localStorage.
-   Nota de limite: o localStorage tem cerca de 5 MB no total. Por isso,
-   usa imagens até 2 MB e evita dezenas de imagens grandes ao mesmo tempo.
-   Para uso ao vivo em vários dispositivos, trocar isto por Supabase
-   (tabelas + bucket + Auth) — ver a secção Início do painel. */
+/* MIRA Admin — imagens por ficheiro viram data URLs e ficam guardadas no painel. */
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
@@ -230,9 +225,7 @@
   document.querySelectorAll(".tab-btn").forEach(function (b) {
     b.addEventListener("click", function () { showSection(b.getAttribute("data-sec")); });
   });
-  /* ---------- Sessão: guardada neste navegador (localStorage) ----------
-     Sem palavra-passe em lado nenhum: a sessão é só o email. Uma sessão
-     antiga guardada em sessionStorage é migrada na primeira entrada. */
+  /* ---------- Sessão ---------- */
   function getSession() {
     try {
       var raw = localStorage.getItem("mira_admin_session");
@@ -261,7 +254,7 @@
     var when = "";
     try { when = new Date(sess.at).toLocaleString("pt-PT"); } catch (e) { when = sess.at || ""; }
     el.innerHTML = '<p><strong>Sessão atual:</strong> ' + esc(sess.email) + '</p>' +
-      '<p class="help">Criada em ' + esc(when) + '. A sessão continua guardada neste navegador até terminares a sessão.</p>';
+      '<p class="help">Criada em ' + esc(when) + '.</p>';
     $("sessionNewEmail").value = sess.email;
   }
   $("gateForm").addEventListener("submit", function (e) {
@@ -692,7 +685,7 @@
     var msgs = chatMessages();
     var replies = chatReplies();
     if (!msgs.length) {
-      el.innerHTML = '<p class="empty">Ainda não há mensagens. Quando um visitante escrever no chat do site, a conversa aparece aqui. Usa o botão “Mensagem de teste” para ver como fica uma conversa antes de haver mensagens reais.</p>';
+      el.innerHTML = '<p class="empty">Ainda não há mensagens. Quando um visitante escrever no chat do site, a conversa aparece aqui.</p>';
       return;
     }
     el.innerHTML = msgs.slice().reverse().map(function (m) {
@@ -731,13 +724,6 @@
       });
     });
   }
-  $("chatTestBtn").addEventListener("click", function () {
-    var msgs = chatMessages();
-    msgs.push({ id: Date.now(), name: "Visitante de teste", message: "Olá! Queria saber o preço de um website.", time: new Date().toISOString(), test: true });
-    localStorage.setItem("mira_chat_messages", JSON.stringify(msgs));
-    toast("Mensagem de teste criada. Apaga-a quando já não precisares dela.");
-    renderChats(); renderSummary();
-  });
   $("chatRefreshBtn").addEventListener("click", function () { renderChats(); renderSummary(); toast("Lista atualizada."); });
 
   /* ---------- Pedidos, Clientes, Visitantes ---------- */
@@ -841,7 +827,7 @@
   (function init() {
     var sess = getSession();
     if (sess) { startApp(sess.email); return; }
-    /* Migração: uma sessão antiga guardada em sessionStorage passa
+    /* Migração: uma sessão antiga passa
        para localStorage, para continuar válida depois de fechar a aba. */
     try {
       var legacy = sessionStorage.getItem("mira_admin_session");
