@@ -349,3 +349,41 @@ img.mira-logo {
   }
   .mira-logos-group { gap: 1.5rem !important; padding-right: 1.5rem !important; }
 }
+
+/* OWNER CORRECTION 2026-11-01 — logos still look zoomed on phone.
+   Real cause: wide wordmarks (UNCANE, sync, area.lab) are ~5-7x wider
+   than tall, so even at 56px/40px height they fill the whole phone
+   width and look cropped/zoomed. Fix: logos much smaller everywhere,
+   with a width cap, so several logos fit on a phone screen at once. */
+section.mira-logos img,
+.mira-logos img,
+.mira-logos-track img,
+.mira-logos-group img,
+.mira-logos-group img.mira-logo,
+.mira-logos img.mira-logo,
+img.mira-logo {
+  height: 28px !important;
+  max-height: 28px !important;
+  width: auto !important;
+  max-width: 180px !important;
+  min-width: 0 !important;
+  flex: none !important;
+  flex-shrink: 0 !important;
+  object-fit: contain !important;
+  transform: none !important;
+  display: block !important;
+}
+@media (max-width: 768px) {
+  section.mira-logos img,
+  .mira-logos img,
+  .mira-logos-track img,
+  .mira-logos-group img,
+  .mira-logos-group img.mira-logo,
+  .mira-logos img.mira-logo,
+  img.mira-logo {
+    height: 24px !important;
+    max-height: 24px !important;
+    width: auto !important;
+    max-width: 150px !important;
+  }
+}
