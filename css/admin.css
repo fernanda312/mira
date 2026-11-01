@@ -1,4 +1,4 @@
-/* MIRA Admin — preto, branco, verde escuro, limpo, com espaço para respirar. */
+/* MIRA Admin — mesmo fundo e mesma tipologia da página principal: preto para verde-escuro, vídeo de fundo, títulos em serif, texto em Inter. */
 * { box-sizing: border-box; }
 :root {
   --bg: #000000;
@@ -14,11 +14,17 @@
 }
 body {
   margin: 0;
-  background: var(--bg);
+  background: linear-gradient(to bottom, #000000 0%, #0b3d2e 100%);
+  background-attachment: fixed;
   color: var(--text);
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", ui-sans-serif, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.55;
 }
+.admin-bg-video {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: 0; pointer-events: none;
+}
+.topbar, .wrap { position: relative; z-index: 1; }
 .topbar {
   display: flex; flex-wrap: wrap; gap: 1rem;
   align-items: center; justify-content: space-between;
@@ -27,7 +33,7 @@ body {
   background: #0a0a0a;
   position: sticky; top: 0; z-index: 10;
 }
-.brand { font-size: 1.6rem; letter-spacing: .25em; }
+.brand { font-size: 1.6rem; letter-spacing: .32em; }
 .brand-sub { margin-left: .75rem; color: var(--muted); }
 .topbar-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
 .session-email { color: var(--lime); font-size: .9rem; }
@@ -39,7 +45,7 @@ body {
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
-h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.2; }
+h1, h2, h3 { font-family: "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; line-height: 1.2; }
 h1 { font-size: 2rem; margin-top: 0; }
 h2 { font-size: 1.7rem; margin-top: 0; }
 h3 { font-size: 1.2rem; margin-top: 2rem; }
@@ -59,19 +65,20 @@ input[type="file"] { font: inherit; color: var(--text); max-width: 100%; }
 input[type="checkbox"] { width: auto; accent-color: var(--green2); }
 .inline-form { display: grid; gap: .25rem; }
 .inline-form label { margin-top: .6rem; }
-/* Botões que parecem botões: pílulas sólidas, texto branco, estado ao passar o dedo/rato. */
+/* Botões que parecem botões: pílulas sólidas em degradê verde, texto branco em negrito, sombra visível. */
 .btn {
   display: inline-block;
-  background: #000; color: #fff;
-  border: 1px solid #555;
+  background: linear-gradient(135deg, #0b3d2e, #22c55e); color: #fff;
+  border: 1px solid transparent;
   border-radius: 999px;
   padding: .65rem 1.3rem;
   font: inherit; font-weight: 700;
   cursor: pointer; text-decoration: none; text-align: center;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, .35);
 }
-.btn:hover, .btn:focus-visible { background: #222; border-color: #fff; outline: none; }
-.btn-primary { background: var(--green); border-color: var(--green); }
-.btn-primary:hover, .btn-primary:focus-visible { background: var(--green2); border-color: var(--green2); }
+.btn:hover, .btn:focus-visible { filter: brightness(1.1); outline: none; }
+.btn-primary { background: linear-gradient(135deg, #0b3d2e, #22c55e); border-color: transparent; }
+.btn-primary:hover, .btn-primary:focus-visible { filter: brightness(1.1); }
 .btn-danger { background: var(--danger); border-color: var(--danger); }
 .btn-danger:hover, .btn-danger:focus-visible { background: #9a2a2a; }
 .btn-small { padding: .4rem .9rem; font-size: .9rem; }
@@ -82,7 +89,7 @@ input[type="checkbox"] { width: auto; accent-color: var(--green2); }
   padding: .6rem 1.1rem; font: inherit; font-weight: 700; cursor: pointer;
 }
 .tab-btn:hover, .tab-btn:focus-visible { border-color: #fff; outline: none; }
-.tab-btn.active { background: var(--green); border-color: var(--green); }
+.tab-btn.active { background: linear-gradient(135deg, #0b3d2e, #22c55e); border-color: transparent; }
 .steps li { margin-bottom: .7rem; }
 .summary { display: flex; flex-wrap: wrap; gap: .75rem; }
 .summary span {
@@ -138,9 +145,13 @@ td video.thumb, video.thumb {
   max-width: 92vw; text-align: center; z-index: 50;
 }
 .toast.show { opacity: 1; }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .wrap { padding: 1rem .75rem 3rem; }
   .card, .panel { padding: 1rem; }
   .brand-sub { display: block; margin-left: 0; }
+  .topbar-actions { width: 100%; }
+  .topbar-actions .btn { flex: 1 1 auto; padding: .6rem 1rem; }
+  .tabs { gap: .4rem; }
+  .tab-btn { padding: .55rem .9rem; }
   table { min-width: 560px; }
 }
