@@ -143,14 +143,26 @@ if(link&&(!document.activeElement||document.activeElement===document.body))link.
       });
       return;
     }
-    // Contact pill: NEVER copy or link any email. Show a visible status message.
-    // Capture + stopPropagation so the original copy handler cannot run.
+    // Contact pill: opens the studio chat (or WhatsApp when the buyer
+    // has filled a real number in the admin). Capture + stopPropagation
+    // so the original copy handler cannot run.
     var pill = t.closest(".contact-pill");
     if (pill) {
       ev.preventDefault();
       ev.stopPropagation();
+      try {
+        var c = JSON.parse(window.localStorage.getItem("mira_admin_contact") || "{}");
+        var digits = String(c.whatsapp || "").replace(/\D/g, "");
+        if (digits.length >= 9) {
+          window.open("https://wa.me/" + digits + "?text=" + encodeURIComponent("Olá MIRA, quero falar convosco."), "_blank");
+          return;
+        }
+      } catch (e) {}
+      var chatBtn = document.getElementById("mira-chat-btn");
+      if (chatBtn) { chatBtn.click(); return; }
+      if (window.__miraOpenChat) { window.__miraOpenChat(); return; }
       var status = document.querySelector(".contact-status");
-      if (status) status.textContent = "Contacto do estúdio ainda por definir.";
+      if (status) status.textContent = "Escreve a tua mensagem — o estúdio responde aqui.";
       return;
     }
     // Studio photos: let the original handler try first; fallback after 300ms.
