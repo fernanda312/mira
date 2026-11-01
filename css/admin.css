@@ -31,7 +31,7 @@ body {
   color: #ffffff;
   position: sticky; top: 0; z-index: 10;
 }
-.brand { font-size: 1.6rem; letter-spacing: .32em; }
+.brand { font-size: 1.6rem; letter-spacing: .32em; color: #ffffff; text-decoration: none; }
 .brand-sub { margin-left: .75rem; color: #bbbbbb; }
 .topbar-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
 .session-email { color: #c6f16d; font-size: .9rem; }
