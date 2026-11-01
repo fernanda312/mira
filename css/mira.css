@@ -601,3 +601,22 @@ body:has(.menu-sheet[data-open="true"]) #mira-chat-btn,body:has(.menu-sheet[data
   .menu-top-actions a{width:100%!important;text-align:center!important}
   .menu-quote-btn{margin-left:0!important;width:100%!important;text-align:center!important}
 }
+
+/* MIRA beleza 2026-11-01 — só 2 defeitos da captura no telemóvel: (1) cabeçalho
+   transparente deixava o título "Serviços e preços" aparecer por baixo dele;
+   (2) os cartões de serviços na página inicial eram caixas de texto sem imagem.
+   Estas regras vêm no fim do ficheiro, depois das regras transparentes antigas
+   (linhas 55 e 132), para prevalecerem. */
+header.identity-rail{background:#000000!important;background-color:#000000!important;border-bottom:1px solid #2b2b2b!important}
+header.identity-rail .mira-wordmark{color:#ffffff!important}
+#mira-home-services{scroll-margin-top:90px!important;padding-top:1.5rem!important}
+#resume,#fazemos,#about,#contact{scroll-margin-top:90px!important}
+.mira-home-service{flex-direction:column!important;align-items:stretch!important;padding:20px!important}
+.mira-home-service-media{width:100%!important;aspect-ratio:16/10!important;object-fit:contain!important;background:#000000!important;border-radius:12px!important;margin-bottom:.75rem!important;display:block!important}
+.mira-home-service strong{font-family:"Source Serif 4",Georgia,serif!important;font-size:1.25rem!important;color:#ffffff!important}
+.mira-home-service-desc{color:#d4d4d4!important}
+.mira-home-service-price{display:block!important;width:100%!important;border-top:1px solid #2b2b2b!important;padding-top:.75rem!important;margin-top:.25rem!important}
+@media (max-width:768px){
+  .mira-home-services-title{font-size:1.6rem!important}
+  .mira-home-services{padding:18px 16px!important}
+}
