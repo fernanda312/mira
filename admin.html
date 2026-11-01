@@ -64,29 +64,38 @@
     <div class="admin-panels">
 
     <section id="sec-inicio" class="panel">
-      <h2>Como funciona, de ponta a ponta</h2>
-      <p class="lead">O comprador do site muda tudo aqui, sem tocar em código e sem depender de quem vendeu. Cada secção guarda logo que carregas em <strong>Guardar</strong>.</p>
-      <ol class="steps">
-        <li><strong>1. Entra</strong> com o teu email de administrador.</li>
-        <li><strong>2. Escolhe uma secção</strong> no botão “Secções”: imagens, vídeos, textos, serviços, preços, menu, contacto, sessão, chats, pedidos, clientes e visitantes.</li>
-        <li><strong>3. Edita e guarda.</strong> Imagens e vídeos entram sempre por ficheiro (botão “Escolher ficheiro”), nunca por link. Vês a pré-visualização antes de guardar.</li>
-        <li><strong>4. Confere no site.</strong> Depois de guardar, abre o site e vê a mudança. Se não aparecer, recarrega a página.</li>
-        <li><strong>5. Faz cópia.</strong> Usa “Exportar cópia (JSON)” em baixo, na secção Início, para guardar tudo num ficheiro. Se alguma coisa correr mal, “Importar cópia” repõe tudo.</li>
-      </ol>
+      <h2>Áreas</h2>
+      <div class="area-grid">
+        <button class="area-btn" type="button" data-sec="logo-hero">Logo e Hero</button>
+        <button class="area-btn" type="button" data-sec="logos">Logos</button>
+        <button class="area-btn" type="button" data-sec="trabalhos">Trabalhos</button>
+        <button class="area-btn" type="button" data-sec="marcas">Faixa de marcas</button>
+        <button class="area-btn" type="button" data-sec="fazemos">O que fazemos</button>
+        <button class="area-btn" type="button" data-sec="sobre-fotos">Sobre — Fotos</button>
+        <button class="area-btn" type="button" data-sec="pormenores">Pormenores</button>
+        <button class="area-btn" type="button" data-sec="textos">Sobre e Percurso</button>
+        <button class="area-btn" type="button" data-sec="servicos">Serviços e preços</button>
+        <button class="area-btn" type="button" data-sec="menu">Menu</button>
+        <button class="area-btn" type="button" data-sec="contacto">Contacto e WhatsApp</button>
+        <button class="area-btn" type="button" data-sec="chats">Chats</button>
+        <button class="area-btn" type="button" data-sec="pedidos">Pedidos</button>
+        <button class="area-btn" type="button" data-sec="clientes">Clientes</button>
+        <button class="area-btn" type="button" data-sec="visitantes">Visitantes</button>
+        <button class="area-btn" type="button" data-sec="sessao">Sessão</button>
+      </div>
       <h3>Cópia de segurança</h3>
-      <p class="help">Guarda uma cópia de tudo num ficheiro, ou repõe uma cópia antiga.</p>
+      
       <div class="backup-row">
         <button class="btn btn-secondary" type="button" id="exportBtn">Exportar cópia (JSON)</button>
         <label class="btn btn-secondary" for="importFile">Importar cópia (JSON)</label>
         <input type="file" id="importFile" accept="application/json" hidden>
       </div>
-      <h3>Resumo rápido</h3>
       <div id="summary" class="summary"></div>
     </section>
 
     <section id="sec-logo-hero" class="panel" hidden>
       <h2>Logo e Hero</h2>
-      <p class="help">O título aparece no topo do site e no separador do navegador. A imagem do hero é a imagem grande do início do site. Escolhe o ficheiro no teu telemóvel ou computador — nunca escrevas um link.</p>
+      
       <form id="logoHeroForm">
         <label for="siteTitle">Título do site</label>
         <input type="text" id="siteTitle">
@@ -95,7 +104,7 @@
           <img id="heroPreview" alt="Pré-visualização do hero">
           <div>
             <input type="file" id="heroFile" accept="image/*">
-            <p class="help">Escolhe uma imagem do teu telemóvel ou computador.</p>
+            
           </div>
         </div>
         <label>Vídeo de fundo do site (ficheiro)</label>
@@ -103,7 +112,7 @@
           <video id="bgVideoPreview" muted loop playsinline preload="metadata" style="max-width:220px;"></video>
           <div>
             <input type="file" id="bgVideoFile" accept="video/*">
-            <p class="help">Este é o vídeo de fundo que passa em todo o site, por trás das secções. Escolhe um ficheiro de vídeo no teu telemóvel ou computador — nunca escrevas um link. Sem ficheiro novo, fica o vídeo atual.</p>
+            
           </div>
         </div>
         <button class="btn btn-primary" type="submit">Guardar logo e hero</button>
@@ -112,7 +121,7 @@
 
     <section id="sec-logos" class="panel" hidden>
       <h2>Logos dos clientes</h2>
-      <p class="help">Estas são as logos que passam debaixo do hero. Cada logo pode ser trocada por um ficheiro novo, removida, ou podes juntar uma logo nova.</p>
+      
       <div id="logosTable"></div>
       <h3>Adicionar logo</h3>
       <form id="logoAddForm" class="inline-form">
@@ -124,7 +133,7 @@
 
     <section id="sec-trabalhos" class="panel" hidden>
       <h2>Trabalhos — faixa em scroll</h2>
-      <p class="help">Estas são as imagens que passam em scroll automático na secção de Trabalhos. Usa as setas para mudar a ordem, troca por ficheiro, remove ou adiciona imagens novas.</p>
+      
       <div id="marqueeTable"></div>
       <h3>Adicionar imagem</h3>
       <form id="marqueeAddForm" class="inline-form">
@@ -136,7 +145,7 @@
 
     <section id="sec-marcas" class="panel" hidden>
       <h2>Faixa de marcas</h2>
-      <p class="help">As palavras que passam na faixa preta (por exemplo: Design gráfico, Livraria, Papelaria). Edita cada linha, remove ou adiciona linhas novas, e guarda.</p>
+      
       <form id="brandsForm">
         <div id="brandsList"></div>
         <button class="btn" type="button" id="brandAddBtn">Adicionar linha</button>
@@ -146,7 +155,7 @@
 
     <section id="sec-fazemos" class="panel" hidden>
       <h2>O que fazemos</h2>
-      <p class="help">Os cartões da secção “O que fazemos”. Cada cartão tem tipo, título, descrição e uma imagem ou vídeo, sempre por ficheiro, nunca por link.</p>
+      
       <div id="fazemosTable"></div>
       <h3>Adicionar cartão</h3>
       <form id="fazemosAddForm" class="inline-form">
@@ -161,7 +170,7 @@
 
     <section id="sec-sobre-fotos" class="panel" hidden>
       <h2>Sobre — Fotos</h2>
-      <p class="help">As fotografias da secção Sobre e da janela de fotografias do estúdio. Cada foto é trocada por ficheiro, com pré-visualização antes de guardar — nunca por link.</p>
+      
       <form id="aboutPhotosForm">
         <label>Foto Sobre 1 (lado direito, em cima)</label>
         <div class="preview-row">
@@ -184,7 +193,7 @@
 
     <section id="sec-pormenores" class="panel" hidden>
       <h2>Pormenores</h2>
-      <p class="help">O título e os três pontos da secção Pormenores. Escreve, guarda, e confere no site.</p>
+      
       <form id="detailsForm">
         <label for="detailsTitle">Título da secção Pormenores</label>
         <input type="text" id="detailsTitle">
@@ -206,7 +215,7 @@
 
     <section id="sec-textos" class="panel" hidden>
       <h2>Sobre e Percurso</h2>
-      <p class="help">Os textos longos do site. Escreve, guarda, e confere no site.</p>
+      
       <form id="textsForm">
         <label for="aboutHeading">Título da secção Sobre</label>
         <input type="text" id="aboutHeading">
@@ -232,7 +241,7 @@
 
     <section id="sec-servicos" class="panel" hidden>
       <h2>Serviços e preços</h2>
-      <p class="help">A lista completa de serviços e preços em meticais (MT). Estes são os mesmos preços da página de Serviços — muda aqui e muda na página. Cada serviço tem também a sua imagem ou vídeo do cartão, sempre por ficheiro, nunca por link: usa “Trocar ficheiro” em cada linha.</p>
+      
       <div id="servicesTable"></div>
       <h3>Adicionar serviço</h3>
       <form id="serviceAddForm" class="inline-form">
@@ -248,7 +257,7 @@
 
     <section id="sec-menu" class="panel" hidden>
       <h2>Menu</h2>
-      <p class="help">As imagens e os títulos dos cartões do menu, e as palavras da barra de navegação. Cada imagem é trocada por ficheiro, com pré-visualização — nunca por link.</p>
+      
       <form id="menuForm">
         <div id="menuTilesList"></div>
         <h3>Palavras da barra de navegação</h3>
@@ -270,7 +279,7 @@
 
     <section id="sec-contacto" class="panel" hidden>
       <h2>Contacto e WhatsApp</h2>
-      <p class="help">Preenche com os teus dados reais. Quando preencheres o WhatsApp, o botão de contacto do site abre o WhatsApp; sem número, abre a conversa do site.</p>
+      
       <form id="contactForm">
         <label for="contactHeading">Título da secção de contacto</label>
         <input type="text" id="contactHeading">
@@ -293,7 +302,7 @@
 
     <section id="sec-sessao" class="panel" hidden>
       <h2>Sessão</h2>
-      <p class="help">Vê a tua sessão atual, muda o email ou termina a sessão.</p>
+      
       <div id="sessionInfo"></div>
       <form id="sessionChangeForm">
         <label for="sessionNewEmail">Mudar o email da sessão</label>
@@ -305,14 +314,14 @@
 
     <section id="sec-chats" class="panel" hidden>
       <h2>Chats — mensagens dos visitantes</h2>
-      <p class="help">As mensagens que os visitantes escrevem no chat do site aparecem aqui. Responde em cada conversa: a tua resposta fica guardada e aparece ao visitante como resposta do estúdio. Novas conversas ficam marcadas como “Nova” até responderes.</p>
+      
       <button class="btn" type="button" id="chatRefreshBtn">Atualizar lista</button>
       <div id="chatsList"></div>
     </section>
 
     <section id="sec-pedidos" class="panel" hidden>
       <h2>Pedidos e reservas</h2>
-      <p class="help">Cada pedido tem nome, serviço, data e estado. Muda o estado na lista e ele fica guardado.</p>
+      
       <form id="orderAddForm" class="inline-form">
         <label>Nome <input type="text" id="orderAddName" required></label>
         <label>Serviço <input type="text" id="orderAddService" required></label>
@@ -324,7 +333,7 @@
 
     <section id="sec-clientes" class="panel" hidden>
       <h2>Clientes</h2>
-      <p class="help">A tua lista de clientes, com contacto e notas.</p>
+      
       <form id="clientAddForm" class="inline-form">
         <label>Nome <input type="text" id="clientAddName" required></label>
         <label>Contacto <input type="text" id="clientAddContact"></label>
@@ -336,7 +345,7 @@
 
     <section id="sec-visitantes" class="panel" hidden>
       <h2>Visitantes</h2>
-      <p class="help">Contagem de visitas por página. Podes corrigir os números à mão e guardar.</p>
+      
       <form id="visitorsForm">
         <div id="visitorsList"></div>
         <button class="btn btn-primary" type="submit">Guardar contagens</button>
@@ -351,14 +360,13 @@
 
     <footer class="card admin-footer">
       <h2>Ver o site</h2>
-      <p>Abre a página principal para veres as mudanças que guardaste. Cada secção guarda quando carregas em Guardar nessa secção.</p>
       <div class="footer-actions">
         <a class="btn btn-primary" href="index.html" target="_blank" rel="noopener noreferrer">Ver o site →</a>
         <button class="btn btn-secondary" type="button" id="saveAndViewBtn">Guardar e ver o site</button>
         <button class="btn btn-secondary btn-small" type="button" id="switchSessionBtn">Mudar de sessão</button>
       </div>
-      <p class="help">“Guardar e ver o site” não guarda alterações que ainda não guardaste nessa secção: abre a página principal para conferires as mudanças que já guardaste em cada secção.</p>
-      <p class="help">“Mudar de sessão” termina a sessão atual e volta ao acesso, para entrares com outro email.</p>
+      
+      
     </footer>
     </div>
   </div>
