@@ -1,6 +1,6 @@
 /* MIRA — aplica no site público o que o comprador guarda no painel.
    Lê APENAS as chaves que js/admin.js grava em localStorage.
-   Não inventa nenhum contacto, email ou número: não há mailto aqui.
+   Não inventa nenhum contacto, email ou número: um mailto só aparece quando o comprador preencheu um email no painel.
    Regras de segurança, em todas as secções:
    - Só aplica uma chave se ela existir e tiver a forma esperada.
    - Se uma secção ou um item não condizer com a página, essa parte
@@ -83,7 +83,7 @@
     return img;
   }
 
-  /* ---------- mira_admin_settings: título e hero ---------- */
+  /* ---------- mira_admin_settings: título, hero e vídeo de fundo ---------- */
   function applySettings() {
     var s = load("mira_admin_settings");
     if (!isObj(s)) return;
@@ -91,6 +91,15 @@
     if (isStr(s.hero)) {
       var hero = document.querySelector("#intro img");
       if (hero) hero.src = s.hero;
+    }
+    if (isStr(s.bgVideo)) {
+      /* Só troca quando muda, para a segunda passagem não reiniciar o vídeo. */
+      document.querySelectorAll(".mira-bg-video").forEach(function (v) {
+        if (v.getAttribute("src") !== s.bgVideo) {
+          v.setAttribute("src", s.bgVideo);
+          try { v.load(); } catch (e) { /* vídeo antigo continua */ }
+        }
+      });
     }
   }
 
@@ -191,6 +200,51 @@
     });
   }
 
+  /* ---------- mira_admin_about_photos: fotos do Sobre ---------- */
+  function applyAboutPhotos() {
+    var list = load("mira_admin_about_photos");
+    if (!Array.isArray(list) || list.length < 3) return;
+    var srcs = list.map(function (p) { return isObj(p) && isStr(p.src) ? p.src : null; });
+    if (!srcs[0] || !srcs[1] || !srcs[2]) return;
+    /* Mãos do Sobre, por ordem: direita, esquerda, topo. */
+    var hand = document.querySelectorAll("#about .about-hand img");
+    if (hand.length >= 3) {
+      hand[0].src = srcs[0];
+      hand[1].src = srcs[1];
+      hand[2].src = srcs[2];
+    }
+    var figure = document.querySelector("#about .mira-sobre-figure img");
+    if (figure) figure.src = srcs[2];
+    /* Janela de fotografias do estúdio, só se já estiver aberta no DOM:
+       a janela é criada ao clicar, por isso aqui só se troca se existir. */
+    var lightbox = document.querySelectorAll(".mira-fallback-lightbox img");
+    if (lightbox.length >= 2) {
+      lightbox[0].src = srcs[0];
+      lightbox[1].src = srcs[2];
+    }
+  }
+
+  /* ---------- mira_admin_details: Pormenores ---------- */
+  function applyDetails() {
+    var d = load("mira_admin_details");
+    if (!isObj(d)) return;
+    if (isStr(d.title)) {
+      var h = document.querySelector("#play .project-title");
+      if (h) h.textContent = d.title;
+    }
+    if (!Array.isArray(d.items)) return;
+    var items = document.querySelectorAll("#play .mira-details li");
+    if (items.length !== d.items.length) return;
+    items.forEach(function (li, i) {
+      var item = d.items[i];
+      if (!isObj(item)) return;
+      var strong = li.querySelector("strong");
+      var desc = li.querySelector("p");
+      if (strong && isStr(item.title)) strong.textContent = item.title;
+      if (desc && typeof item.desc === "string") desc.textContent = item.desc;
+    });
+  }
+
   /* ---------- mira_admin_texts: textos de Sobre e de O que fazemos ---------- */
   function applyTexts() {
     var t = load("mira_admin_texts");
@@ -207,32 +261,84 @@
       var intro = document.querySelector("#fazemos > p");
       if (intro) intro.textContent = t.servicesIntro;
     }
+    if (isStr(t.aboutMore)) {
+      var more = document.querySelector("#about .about-more");
+      if (more) more.textContent = t.aboutMore;
+    }
+    if (Array.isArray(t.percurso)) {
+      /* Lista não compacta do Percurso: a lista compacta de Serviços
+         é tratada em applyHomeServices, não aqui. */
+      var all = document.querySelectorAll("#resume .resume-summary-list");
+      var percursoList = null;
+      all.forEach(function (ol) {
+        if (!percursoList && !ol.classList.contains("resume-summary-list--tight")) percursoList = ol;
+      });
+      if (percursoList) {
+        var roles = percursoList.querySelectorAll(".resume-entry-role");
+        if (roles.length === t.percurso.length) {
+          roles.forEach(function (role, i) {
+            if (isStr(t.percurso[i])) role.textContent = t.percurso[i];
+          });
+        }
+      }
+    }
+    if (isStr(t.quote)) {
+      var quote = document.querySelector("#about .about-quote p");
+      if (quote) quote.textContent = t.quote;
+    }
+    if (isStr(t.attribution)) {
+      var attrib = document.querySelector("#about .about-attribution");
+      if (attrib) attrib.textContent = t.attribution;
+    }
   }
 
-  /* ---------- mira_admin_contact: título de Contacto ---------- */
+  /* ---------- mira_admin_contact: título e redes de Contacto ----------
+     Redes: só se aplica o que o comprador preencheu no painel. Um email
+     só vira mailto quando está preenchido e tem @; nunca se inventa
+     nenhum email, telefone ou ligação, e nunca se usa o email de outra
+     pessoa. Sem valor preenchido, a ligação fica em #contact. */
   function applyContact() {
     var c = load("mira_admin_contact");
-    if (!isObj(c) || !isStr(c.heading)) return;
-    var heading = document.querySelector("#contact .contact-heading");
-    if (!heading) return;
-    var accent = heading.querySelector(".claim-accent");
-    if (accent) {
-      /* Preserva o acento colorido: última palavra vai para o span,
-         o resto fica como texto antes dele. */
-      var words = c.heading.trim().split(/\s+/);
-      var last = words.pop();
-      Array.prototype.slice.call(heading.childNodes).forEach(function (node) {
-        if (node.nodeType === 3) heading.removeChild(node);
-      });
-      heading.insertBefore(document.createTextNode(words.join(" ") + " "), accent);
-      accent.textContent = last;
-    } else {
-      heading.textContent = c.heading;
+    if (!isObj(c)) return;
+    if (isStr(c.heading)) {
+      var heading = document.querySelector("#contact .contact-heading");
+      if (heading) {
+        var accent = heading.querySelector(".claim-accent");
+        if (accent) {
+          var words = c.heading.trim().split(/\s+/);
+          var last = words.pop();
+          Array.prototype.slice.call(heading.childNodes).forEach(function (node) {
+            if (node.nodeType === 3) heading.removeChild(node);
+          });
+          heading.insertBefore(document.createTextNode(words.join(" ") + " "), accent);
+          accent.textContent = last;
+        } else {
+          heading.textContent = c.heading;
+        }
+      }
     }
-    /* Nota: mira_admin_contact.whatsapp e .note NÃO têm elemento
-       correspondente na página pública (não há botão de WhatsApp nem
-       zona de nota em #contact), por isso não são aplicados aqui e
-       nenhum elemento novo é criado para os mostrar. */
+    var linkedin = isStr(c.linkedin) ? c.linkedin : null;
+    var x = isStr(c.x) ? c.x : null;
+    var email = (isStr(c.email) && c.email.indexOf("@") > 0) ? c.email : null;
+    /* Barra do topo: cada grupo de 3 botões é [email, LinkedIn, X].
+       A identificação usa o rótulo do botão quando existe, e só cai
+       para a posição no grupo quando o rótulo falta. */
+    var rail = document.querySelectorAll(".rail-social-btn");
+    rail.forEach(function (a, i) {
+      var label = (a.getAttribute("aria-label") || "") + " " + (a.className || "");
+      var kind;
+      if (/mail|email|contacto/i.test(label)) kind = 0;
+      else if (/linkedin/i.test(label)) kind = 1;
+      else if (/\bX\b/i.test(a.getAttribute("aria-label") || "")) kind = 2;
+      else kind = i % 3;
+      if (kind === 0) { if (email) a.setAttribute("href", "mailto:" + email); }
+      else if (kind === 1) { if (linkedin) a.setAttribute("href", linkedin); }
+      else { if (x) a.setAttribute("href", x); }
+    });
+    /* Menu: só LinkedIn e X, por esta ordem. */
+    var social = document.querySelectorAll(".menu-contact-social");
+    if (social.length >= 1 && linkedin) social[0].setAttribute("href", linkedin);
+    if (social.length >= 2 && x) social[1].setAttribute("href", x);
   }
 
   /* ---------- mira_admin_services: preços em servicos.html ----------
@@ -260,6 +366,23 @@
       if (!item && valid.length === sections.length) item = valid[idx];
       if (!item) return;
       if (isStr(item.name)) nameEl.textContent = item.name;
+      /* Imagem/vídeo do cartão, sempre inteiro (object-fit: contain já
+         está no CSS da página de Serviços: sem zoom, sem corte). */
+      var media = sec.querySelector(".media");
+      if (media && isStr(item.img)) {
+        if (isVideo(item)) {
+          media.innerHTML = "";
+          var vid = document.createElement("video");
+          vid.src = item.img;
+          vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true;
+          vid.preload = "metadata";
+          vid.setAttribute("aria-label", item.name);
+          media.appendChild(vid);
+        } else {
+          media.innerHTML = "";
+          media.appendChild(makeImg(item.img, item.name, ""));
+        }
+      }
       var descEl = sec.querySelector("p:not(.price)");
       if (descEl && typeof item.desc === "string") descEl.textContent = item.desc;
       var priceEl = sec.querySelector(".price");
@@ -271,9 +394,59 @@
        painel com outro tamanho fica por aplicar nessa diferença. */
   }
 
+  /* ---------- Lista de Serviços na página inicial ----------
+     A lista compacta debaixo de "Serviços" no Percurso segue os nomes
+     guardados no painel, por ordem. Só reconstrói se a lista existir. */
+  function applyHomeServices() {
+    var list = load("mira_admin_services");
+    if (!Array.isArray(list)) return;
+    var valid = list.filter(function (s) { return isObj(s) && isStr(s.name); });
+    if (!valid.length) return;
+    var ol = document.querySelector('ol[aria-labelledby="resume-education"]');
+    if (!ol) return;
+    while (ol.firstChild) ol.removeChild(ol.firstChild);
+    valid.forEach(function (item) {
+      var li = document.createElement("li");
+      li.className = "resume-entry";
+      var role = document.createElement("p");
+      role.className = "resume-entry-role";
+      role.textContent = item.name;
+      li.appendChild(role);
+      ol.appendChild(li);
+    });
+  }
+
+  /* ---------- mira_admin_menu: cartões do menu e navegação ---------- */
+  function applyMenu() {
+    var m = load("mira_admin_menu");
+    if (!isObj(m)) return;
+    if (Array.isArray(m.tiles)) {
+      var tiles = document.querySelectorAll(".menu-tile");
+      if (tiles.length === m.tiles.length) {
+        tiles.forEach(function (tile, i) {
+          var item = m.tiles[i];
+          if (!isObj(item)) return;
+          var img = tile.querySelector("img");
+          if (img && isStr(item.src)) img.src = item.src;
+          var title = tile.querySelector(".menu-tile-title");
+          if (title && isStr(item.title)) title.textContent = item.title;
+        });
+      }
+    }
+    if (Array.isArray(m.nav)) {
+      var nav = document.querySelectorAll(".site-nav a");
+      if (nav.length === m.nav.length) {
+        nav.forEach(function (a, i) {
+          if (isStr(m.nav[i])) a.textContent = m.nav[i];
+        });
+      }
+    }
+  }
+
   function applyAll() {
     var steps = [applySettings, applyLogos, applyMarquee, applyBrands,
-      applyFazemos, applyTexts, applyContact, applyServices];
+      applyFazemos, applyAboutPhotos, applyDetails, applyTexts, applyContact,
+      applyServices, applyHomeServices, applyMenu];
     steps.forEach(function (fn) {
       try { fn(); } catch (e) { /* uma secção nunca trava as outras */ }
     });

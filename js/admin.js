@@ -54,7 +54,7 @@
 
   /* ---------- Valores iniciais (os mesmos do site atual) ---------- */
   var DEFAULTS = {
-    settings: { siteTitle: "MIRA — Estúdio de Design", hero: "images/mira-hero-mira-ext.jpg" },
+    settings: { siteTitle: "MIRA — Estúdio de Design", hero: "images/mira-hero-mira-ext.jpg", bgVideo: "media/mira-fundo.mp4" },
     logos: [
       { name: "sync", src: "images/logos/logo-sync.png" },
       { name: "CA", src: "images/logos/logo-ca.png" },
@@ -83,24 +83,54 @@
     texts: {
       aboutHeading: "Desenhamos, ouvimos e simplificamos.",
       aboutText: "Questionamos o pedido até encontrar o problema por baixo dele. Depois desenhamos com pouco, mas bem feito: marca, produto e site, sem ruído.",
-      servicesIntro: "Design gráfico, livraria, papelaria, impressões, edição e publicação de livros e material escolar — tudo com o mesmo cuidado."
+      servicesIntro: "Design gráfico, livraria, papelaria, impressões, edição e publicação de livros e material escolar — tudo com o mesmo cuidado.",
+      aboutMore: "Trabalhamos em equipa pequena, com tempo para cada projecto. Antes de desenhar, ouvimos; depois de entregar, acompanhamos o uso e ajustamos o que for preciso.",
+      percurso: ["Descobrir — o problema, o público e o contexto", "Desenhar — marca, produto e site, em conjunto", "Entregar — um sistema claro, pronto a usar e a crescer"],
+      quote: "“Menos, mas melhor.”",
+      attribution: "MIRA · Maputo"
+    },
+    aboutPhotos: [
+      { name: "Foto Sobre 1", src: "images/mira-sobre.jpg" },
+      { name: "Foto Equipa", src: "images/mira-equipa.jpg" },
+      { name: "Foto Sobre 2", src: "images/mira-sobre-2.jpg" }
+    ],
+    details: {
+      title: "Pormenores que fazem a diferença.",
+      items: [
+        { title: "Tipografia", desc: "Letras legíveis, com hierarquia clara e espaço para respirar." },
+        { title: "Cor", desc: "Paletas contidas, com um acento só onde faz falta." },
+        { title: "Grelha", desc: "Uma grelha simples, que mantém tudo alinhado em qualquer ecrã." }
+      ]
+    },
+    menu: {
+      tiles: [
+        { title: "Identidade de marca", src: "images/mira-marca.jpg" },
+        { title: "Aplicação", src: "images/mira-app.jpg" },
+        { title: "Website", src: "images/mira-site.jpg" },
+        { title: "Editorial", src: "images/mira-editorial.jpg" },
+        { title: "Embalagem", src: "images/mira-embalagem.jpg" },
+        { title: "Redes sociais", src: "images/mira-redes.jpg" },
+        { title: "Catálogo", src: "images/mira-catalogo.jpg" },
+        { title: "Aplicação · Reservas", src: "images/mira-app-reservas.jpg" }
+      ],
+      nav: ["Trabalhos", "O que fazemos", "Pormenores", "Sobre", "Percurso", "Serviços"]
     },
     services: [
-      { name: "Identidade de marca", desc: "Uma marca clara, que se reconhece à primeira vista.", price: 25000, monthly: false },
-      { name: "Produto digital", desc: "Uma aplicação simples de usar, do primeiro ecrã ao último.", price: 30000, monthly: false },
-      { name: "Websites", desc: "Um site limpo, rápido de ler e fácil de navegar.", price: 35000, monthly: false },
-      { name: "Editorial", desc: "Páginas com espaço para respirar e uma história para contar.", price: 18000, monthly: false },
-      { name: "Embalagem", desc: "Embalagens que mostram o produto e a marca.", price: 15000, monthly: false },
-      { name: "Redes sociais", desc: "Conteúdos e imagens para as redes do negócio.", price: 12000, monthly: false },
-      { name: "Catálogo", desc: "Catálogos organizados, prontos a mostrar e a vender.", price: 20000, monthly: false },
-      { name: "Livraria", desc: "Livros e leitura, com espaço para descobrir.", price: 10000, monthly: false },
-      { name: "Edição e publicação de livros", desc: "Do manuscrito ao livro, com design gráfico e impressões cuidadas.", price: 22000, monthly: false },
-      { name: "Papelaria", desc: "Papelaria de todos os dias, com design gráfico e impressões próprias.", price: 8000, monthly: false },
-      { name: "Material escolar", desc: "Material escolar para a escola e para casa.", price: 9000, monthly: false },
-      { name: "Direcção de arte", desc: "Direcção de arte para marca, produto e site, em conjunto.", price: 20000, monthly: false },
-      { name: "Acompanhamento e evolução do site", desc: "Depois de entregar, acompanhamos o uso e ajustamos o que for preciso.", price: 10000, monthly: true }
+      { name: "Identidade de marca", desc: "Uma marca clara, que se reconhece à primeira vista.", price: 25000, monthly: false , img: "images/servico-merch.jpg", kind: "image" },
+      { name: "Produto digital", desc: "Uma aplicação simples de usar, do primeiro ecrã ao último.", price: 30000, monthly: false , img: "images/mira-app.jpg", kind: "image" },
+      { name: "Websites", desc: "Um site limpo, rápido de ler e fácil de navegar.", price: 35000, monthly: false , img: "images/mira-site.jpg", kind: "image" },
+      { name: "Editorial", desc: "Páginas com espaço para respirar e uma história para contar.", price: 18000, monthly: false , img: "images/servico-september.jpg", kind: "image" },
+      { name: "Embalagem", desc: "Embalagens que mostram o produto e a marca.", price: 15000, monthly: false , img: "images/servico-saint.jpg", kind: "image" },
+      { name: "Redes sociais", desc: "Conteúdos e imagens para as redes do negócio.", price: 12000, monthly: false , img: "images/servico-burger.jpg", kind: "image" },
+      { name: "Catálogo", desc: "Catálogos organizados, prontos a mostrar e a vender.", price: 20000, monthly: false , img: "images/servico-global.jpg", kind: "image" },
+      { name: "Livraria", desc: "Livros e leitura, com espaço para descobrir.", price: 10000, monthly: false , img: "media/mira-video-3.mp4", kind: "video" },
+      { name: "Edição e publicação de livros", desc: "Do manuscrito ao livro, com design gráfico e impressões cuidadas.", price: 22000, monthly: false , img: "media/mira-video-1.mp4", kind: "video" },
+      { name: "Papelaria", desc: "Papelaria de todos os dias, com design gráfico e impressões próprias.", price: 8000, monthly: false , img: "images/servico-pens.jpg", kind: "image" },
+      { name: "Material escolar", desc: "Material escolar para a escola e para casa.", price: 9000, monthly: false , img: "images/servico-shapeiva.jpg", kind: "image" },
+      { name: "Direcção de arte", desc: "Direcção de arte para marca, produto e site, em conjunto.", price: 20000, monthly: false , img: "images/servico-hand.jpg", kind: "image" },
+      { name: "Acompanhamento e evolução do site", desc: "Depois de entregar, acompanhamos o uso e ajustamos o que for preciso.", price: 10000, monthly: true , img: "images/servico-tyler.jpg", kind: "image" }
     ],
-    contact: { heading: "O resto da história é uma conversa.", whatsapp: "", note: "" },
+    contact: { heading: "O resto da história é uma conversa.", whatsapp: "", note: "", linkedin: "", x: "", email: "" },
     orders: [],
     clients: [],
     visitors: [
@@ -108,15 +138,54 @@
       { page: "Serviços", count: 0 }
     ]
   };
+  /* Enrichment: saved data from before these sections existed keeps
+     working — any missing new field falls back to the site default,
+     so the panel never shows a blank image, text or price. */
+  function enrichSettings(v) {
+    var d = DEFAULTS.settings;
+    if (!v || typeof v !== "object") return clone(d);
+    if (!v.bgVideo) v.bgVideo = d.bgVideo;
+    return v;
+  }
+  function enrichTexts(v) {
+    var d = DEFAULTS.texts;
+    if (!v || typeof v !== "object") return clone(d);
+    if (v.aboutMore === undefined) v.aboutMore = d.aboutMore;
+    if (!Array.isArray(v.percurso)) v.percurso = clone(d.percurso);
+    if (v.quote === undefined) v.quote = d.quote;
+    if (v.attribution === undefined) v.attribution = d.attribution;
+    return v;
+  }
+  function enrichServices(v) {
+    if (!Array.isArray(v)) return clone(DEFAULTS.services);
+    var byName = {};
+    DEFAULTS.services.forEach(function (d) { byName[d.name] = d; });
+    v.forEach(function (item, i) {
+      var d = byName[item.name] || DEFAULTS.services[i];
+      if (d && !item.img) { item.img = d.img; item.kind = d.kind; }
+    });
+    return v;
+  }
+  function enrichContact(v) {
+    var d = DEFAULTS.contact;
+    if (!v || typeof v !== "object") return clone(d);
+    if (v.linkedin === undefined) v.linkedin = d.linkedin;
+    if (v.x === undefined) v.x = d.x;
+    if (v.email === undefined) v.email = d.email;
+    return v;
+  }
   var S = {
-    settings: load("mira_admin_settings", DEFAULTS.settings),
+    settings: enrichSettings(load("mira_admin_settings", DEFAULTS.settings)),
     logos: load("mira_admin_logos", DEFAULTS.logos),
     marquee: load("mira_admin_marquee", DEFAULTS.marquee),
     brands: load("mira_admin_brands", DEFAULTS.brands),
     fazemos: load("mira_admin_fazemos", DEFAULTS.fazemos),
-    texts: load("mira_admin_texts", DEFAULTS.texts),
-    services: load("mira_admin_services", DEFAULTS.services),
-    contact: load("mira_admin_contact", DEFAULTS.contact),
+    texts: enrichTexts(load("mira_admin_texts", DEFAULTS.texts)),
+    aboutPhotos: load("mira_admin_about_photos", DEFAULTS.aboutPhotos),
+    details: load("mira_admin_details", DEFAULTS.details),
+    menu: load("mira_admin_menu", DEFAULTS.menu),
+    services: enrichServices(load("mira_admin_services", DEFAULTS.services)),
+    contact: enrichContact(load("mira_admin_contact", DEFAULTS.contact)),
     orders: load("mira_admin_orders", DEFAULTS.orders),
     clients: load("mira_admin_clients", DEFAULTS.clients),
     visitors: load("mira_admin_visitors", DEFAULTS.visitors)
@@ -161,26 +230,65 @@
   document.querySelectorAll(".tab-btn").forEach(function (b) {
     b.addEventListener("click", function () { showSection(b.getAttribute("data-sec")); });
   });
+  /* ---------- Sessão: guardada neste navegador (localStorage) ----------
+     Sem palavra-passe em lado nenhum: a sessão é só o email. Uma sessão
+     antiga guardada em sessionStorage é migrada na primeira entrada. */
+  function getSession() {
+    try {
+      var raw = localStorage.getItem("mira_admin_session");
+      if (raw) { var v = JSON.parse(raw); if (v && v.email) return v; }
+    } catch (e) { /* sessão danificada: volta ao acesso */ }
+    return null;
+  }
+  function setSession(email) {
+    var sess = { email: email, at: new Date().toISOString() };
+    try { localStorage.setItem("mira_admin_session", JSON.stringify(sess)); } catch (e) { /* sem armazenamento */ }
+    try { sessionStorage.removeItem("mira_admin_session"); } catch (e) { /* sem sessionStorage */ }
+    return sess;
+  }
+  function endSession() {
+    try { localStorage.removeItem("mira_admin_session"); } catch (e) { /* nada */ }
+    try { sessionStorage.removeItem("mira_admin_session"); } catch (e) { /* nada */ }
+    $("app").hidden = true;
+    $("topbarActions").hidden = true;
+    $("gate").hidden = false;
+  }
+  function fillSession() {
+    var sess = getSession();
+    var el = $("sessionInfo");
+    if (!el) return;
+    if (!sess) { el.innerHTML = '<p class="empty">Nenhuma sessão ativa.</p>'; return; }
+    var when = "";
+    try { when = new Date(sess.at).toLocaleString("pt-PT"); } catch (e) { when = sess.at || ""; }
+    el.innerHTML = '<p><strong>Sessão atual:</strong> ' + esc(sess.email) + '</p>' +
+      '<p class="help">Criada em ' + esc(when) + '. A sessão continua guardada neste navegador até terminares a sessão.</p>';
+    $("sessionNewEmail").value = sess.email;
+  }
   $("gateForm").addEventListener("submit", function (e) {
     e.preventDefault();
     var email = $("adminEmail").value.trim();
     if (!email || email.indexOf("@") < 1) { toast("Escreve um email válido."); return; }
-    sessionStorage.setItem("mira_admin_session", JSON.stringify({ email: email, at: new Date().toISOString() }));
+    setSession(email);
     startApp(email);
     toast("Bem-vindo ao painel.");
   });
-  $("logoutBtn").addEventListener("click", function () {
-    sessionStorage.removeItem("mira_admin_session");
-    $("app").hidden = true;
-    $("topbarActions").hidden = true;
-    $("gate").hidden = false;
+  $("logoutBtn").addEventListener("click", function () { endSession(); });
+  $("sessionChangeForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = $("sessionNewEmail").value.trim();
+    if (!email || email.indexOf("@") < 1) { toast("Escreve um email válido."); return; }
+    setSession(email);
+    $("sessionEmail").textContent = email;
+    fillSession();
+    toast("Guardado.");
   });
+  $("sessionEndBtn").addEventListener("click", function () { endSession(); toast("Sessão terminada."); });
   function startApp(email) {
     $("gate").hidden = true;
     $("app").hidden = false;
     $("topbarActions").hidden = false;
     $("sessionEmail").textContent = email;
-    fillLogoHero(); fillTexts(); fillContact();
+    fillLogoHero(); fillTexts(); fillContact(); fillAboutPhotos(); fillDetails(); fillMenu(); fillSession();
     renderLogos(); renderMarquee(); renderBrands(); renderFazemos(); renderServices();
     renderChats(); renderOrders(); renderClients(); renderVisitors();
     showSection("inicio");
@@ -188,20 +296,29 @@
 
   /* ---------- Logo e Hero ---------- */
   var pendingHero = null;
+  var pendingBgVideo = null;
   function fillLogoHero() {
     $("siteTitle").value = S.settings.siteTitle || "";
     $("heroPreview").src = pendingHero || S.settings.hero || "";
+    $("bgVideoPreview").src = pendingBgVideo || S.settings.bgVideo || "";
   }
   $("heroFile").addEventListener("change", function () {
     readFile(this.files[0], function (url) {
       if (url) { pendingHero = url; $("heroPreview").src = url; }
     });
   });
+  $("bgVideoFile").addEventListener("change", function () {
+    readFile(this.files[0], function (url) {
+      if (url) { pendingBgVideo = url; $("bgVideoPreview").src = url; }
+    });
+  });
   $("logoHeroForm").addEventListener("submit", function (e) {
     e.preventDefault();
     S.settings.siteTitle = $("siteTitle").value.trim() || S.settings.siteTitle;
     if (pendingHero) S.settings.hero = pendingHero;
+    if (pendingBgVideo) S.settings.bgVideo = pendingBgVideo;
     pendingHero = null;
+    pendingBgVideo = null;
     saveKey("mira_admin_settings", S.settings);
   });
 
@@ -376,17 +493,70 @@
     });
   });
 
+  /* ---------- Sobre — Fotos ---------- */
+  var pendingAbout = [null, null, null];
+  function fillAboutPhotos() {
+    var previews = ["aboutPhoto1Preview", "aboutPhoto2Preview", "aboutPhoto3Preview"];
+    previews.forEach(function (id, i) {
+      var el = $(id);
+      if (el) el.src = pendingAbout[i] || (S.aboutPhotos[i] && S.aboutPhotos[i].src) || "";
+    });
+  }
+  ["aboutPhoto1File", "aboutPhoto2File", "aboutPhoto3File"].forEach(function (id, i) {
+    $(id).addEventListener("change", function () {
+      readFile(this.files[0], function (url) {
+        if (url) { pendingAbout[i] = url; fillAboutPhotos(); }
+      });
+    });
+  });
+  $("aboutPhotosForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    pendingAbout.forEach(function (url, i) {
+      if (url && S.aboutPhotos[i]) S.aboutPhotos[i].src = url;
+    });
+    pendingAbout = [null, null, null];
+    if (saveKey("mira_admin_about_photos", S.aboutPhotos)) fillAboutPhotos();
+  });
+
+  /* ---------- Pormenores ---------- */
+  function fillDetails() {
+    $("detailsTitle").value = S.details.title || "";
+    S.details.items.forEach(function (item, i) {
+      $("detailsItem" + i + "Title").value = item.title || "";
+      $("detailsItem" + i + "Desc").value = item.desc || "";
+    });
+  }
+  $("detailsForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    S.details.title = $("detailsTitle").value.trim();
+    S.details.items.forEach(function (item, i) {
+      item.title = $("detailsItem" + i + "Title").value.trim();
+      item.desc = $("detailsItem" + i + "Desc").value.trim();
+    });
+    saveKey("mira_admin_details", S.details);
+  });
+
   /* ---------- Textos, Serviços, Contacto ---------- */
   function fillTexts() {
     $("aboutHeading").value = S.texts.aboutHeading || "";
     $("aboutText").value = S.texts.aboutText || "";
     $("servicesIntro").value = S.texts.servicesIntro || "";
+    $("aboutMore").value = S.texts.aboutMore || "";
+    (S.texts.percurso || []).forEach(function (step, i) {
+      $("percursoStep" + (i + 1)).value = step || "";
+    });
+    $("quoteText").value = S.texts.quote || "";
+    $("quoteAttribution").value = S.texts.attribution || "";
   }
   $("textsForm").addEventListener("submit", function (e) {
     e.preventDefault();
     S.texts.aboutHeading = $("aboutHeading").value.trim();
     S.texts.aboutText = $("aboutText").value.trim();
     S.texts.servicesIntro = $("servicesIntro").value.trim();
+    S.texts.aboutMore = $("aboutMore").value.trim();
+    S.texts.percurso = [1, 2, 3].map(function (n) { return $("percursoStep" + n).value.trim(); });
+    S.texts.quote = $("quoteText").value.trim();
+    S.texts.attribution = $("quoteAttribution").value.trim();
     saveKey("mira_admin_texts", S.texts);
   });
   function renderServices() {
@@ -394,12 +564,14 @@
     if (!S.services.length) { el.innerHTML = '<p class="empty">Ainda não há serviços. Adiciona o primeiro em baixo.</p>'; return; }
     var rows = S.services.map(function (s, i) {
       return "<tr><td><strong>" + esc(s.name) + "</strong></td><td>" + esc(s.desc) + "</td>" +
+        "<td>" + mediaTag({ src: s.img, kind: s.kind, name: s.name }, "thumb") + "</td>" +
         '<td><input type="number" min="0" step="100" value="' + Number(s.price || 0) + '" data-svc-price="' + i + '" style="width:130px;"> MT' +
         (s.monthly ? " / mês" : "") + "</td>" +
         '<td><button class="btn btn-small" type="button" data-svc-edit="' + i + '">Editar</button> ' +
+        '<label class="btn btn-small">Trocar ficheiro<input type="file" accept="image/*,video/*" hidden data-svc-replace="' + i + '"></label> ' +
         '<button class="btn btn-small btn-danger" type="button" data-svc-del="' + i + '">Remover</button></td></tr>';
     }).join("");
-    el.innerHTML = '<div class="table-wrap"><table><thead><tr><th>Serviço</th><th>Descrição</th><th>Preço</th><th>Ações</th></tr></thead><tbody>' + rows + "</tbody></table></div>" +
+    el.innerHTML = '<div class="table-wrap"><table><thead><tr><th>Serviço</th><th>Descrição</th><th>Imagem / vídeo</th><th>Preço</th><th>Ações</th></tr></thead><tbody>' + rows + "</tbody></table></div>" +
       '<button class="btn btn-primary" type="button" id="servicesSaveBtn">Guardar preços</button>';
     el.querySelectorAll("[data-svc-edit]").forEach(function (b) {
       b.addEventListener("click", function () {
@@ -411,6 +583,18 @@
         if (desc === null) return;
         s.name = name.trim() || s.name; s.desc = desc.trim() || s.desc;
         if (saveKey("mira_admin_services", S.services)) renderServices();
+      });
+    });
+    el.querySelectorAll("[data-svc-replace]").forEach(function (input) {
+      input.addEventListener("change", function () {
+        var idx = Number(input.getAttribute("data-svc-replace"));
+        var file = input.files[0];
+        readFile(file, function (url) {
+          if (!url) return;
+          S.services[idx].img = url;
+          S.services[idx].kind = file && file.type.indexOf("video") === 0 ? "video" : "image";
+          if (saveKey("mira_admin_services", S.services)) renderServices();
+        });
       });
     });
     el.querySelectorAll("[data-svc-del]").forEach(function (b) {
@@ -430,24 +614,75 @@
   }
   $("serviceAddForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    S.services.push({
-      name: $("serviceAddName").value.trim(),
-      desc: $("serviceAddDesc").value.trim(),
-      price: Number($("serviceAddPrice").value || 0),
-      monthly: $("serviceAddMonthly").checked
+    var name = $("serviceAddName").value.trim();
+    var desc = $("serviceAddDesc").value.trim();
+    var price = Number($("serviceAddPrice").value || 0);
+    var monthly = $("serviceAddMonthly").checked;
+    var file = $("serviceAddFile").files[0];
+    readFile(file, function (url) {
+      S.services.push({
+        name: name, desc: desc, price: price, monthly: monthly,
+        img: url || "", kind: file && file.type.indexOf("video") === 0 ? "video" : "image"
+      });
+      if (saveKey("mira_admin_services", S.services)) { renderServices(); e.target.reset(); }
     });
-    if (saveKey("mira_admin_services", S.services)) { renderServices(); e.target.reset(); }
   });
+  /* ---------- Menu ---------- */
+  var pendingMenuTiles = [];
+  function fillMenu() {
+    var list = $("menuTilesList");
+    list.innerHTML = S.menu.tiles.map(function (t, i) {
+      return '<div class="preview-row"><img src="' + esc(pendingMenuTiles[i] || t.src || "") + '" alt="Pré-visualização de ' + esc(t.title) + '">' +
+        '<div><label>Título do cartão ' + (i + 1) + ' <input type="text" data-menu-title="' + i + '" value="' + esc(t.title) + '"></label> ' +
+        '<label class="btn btn-small">Trocar ficheiro<input type="file" accept="image/*" hidden data-menu-replace="' + i + '"></label></div></div>';
+    }).join("");
+    list.querySelectorAll("[data-menu-replace]").forEach(function (input) {
+      input.addEventListener("change", function () {
+        var idx = Number(input.getAttribute("data-menu-replace"));
+        readFile(input.files[0], function (url) {
+          if (!url) return;
+          pendingMenuTiles[idx] = url;
+          /* Só troca a pré-visualização desta linha, sem redesenhar o
+             formulário — senão um título já escrito e ainda não guardado
+             perdia-se. */
+          var row = input.closest(".preview-row");
+          var preview = row ? row.querySelector("img") : null;
+          if (preview) preview.src = url;
+        });
+      });
+    });
+    var navIds = ["navTrabalhos", "navFazemos", "navPormenores", "navSobre", "navPercurso", "navServicos"];
+    navIds.forEach(function (id, i) { $(id).value = (S.menu.nav && S.menu.nav[i]) || ""; });
+  }
+  $("menuForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    $("menuTilesList").querySelectorAll("[data-menu-title]").forEach(function (input) {
+      var idx = Number(input.getAttribute("data-menu-title"));
+      S.menu.tiles[idx].title = input.value.trim() || S.menu.tiles[idx].title;
+      if (pendingMenuTiles[idx]) S.menu.tiles[idx].src = pendingMenuTiles[idx];
+    });
+    var navIds = ["navTrabalhos", "navFazemos", "navPormenores", "navSobre", "navPercurso", "navServicos"];
+    S.menu.nav = navIds.map(function (id) { return $(id).value.trim(); });
+    pendingMenuTiles = [];
+    if (saveKey("mira_admin_menu", S.menu)) fillMenu();
+  });
+
   function fillContact() {
     $("contactHeading").value = S.contact.heading || "";
     $("whatsapp").value = S.contact.whatsapp || "";
     $("contactNote").value = S.contact.note || "";
+    $("contactLinkedin").value = S.contact.linkedin || "";
+    $("contactX").value = S.contact.x || "";
+    $("contactEmail").value = S.contact.email || "";
   }
   $("contactForm").addEventListener("submit", function (e) {
     e.preventDefault();
     S.contact.heading = $("contactHeading").value.trim();
     S.contact.whatsapp = $("whatsapp").value.trim();
     S.contact.note = $("contactNote").value.trim();
+    S.contact.linkedin = $("contactLinkedin").value.trim();
+    S.contact.x = $("contactX").value.trim();
+    S.contact.email = $("contactEmail").value.trim();
     saveKey("mira_admin_contact", S.contact);
   });
 
@@ -571,7 +806,7 @@
   /* ---------- Exportar / Importar ---------- */
   $("exportBtn").addEventListener("click", function () {
     var out = {};
-    ["mira_admin_settings", "mira_admin_logos", "mira_admin_marquee", "mira_admin_brands", "mira_admin_fazemos", "mira_admin_texts", "mira_admin_services", "mira_admin_contact", "mira_admin_orders", "mira_admin_clients", "mira_admin_visitors", "mira_chat_messages", "mira_chat_replies"].forEach(function (k) {
+    ["mira_admin_settings", "mira_admin_logos", "mira_admin_marquee", "mira_admin_brands", "mira_admin_fazemos", "mira_admin_texts", "mira_admin_about_photos", "mira_admin_details", "mira_admin_menu", "mira_admin_services", "mira_admin_contact", "mira_admin_orders", "mira_admin_clients", "mira_admin_visitors", "mira_chat_messages", "mira_chat_replies"].forEach(function (k) {
       var v = localStorage.getItem(k);
       if (v) { try { out[k] = JSON.parse(v); } catch (e) { /* ignora valor danificado */ } }
     });
@@ -604,14 +839,17 @@
 
   /* ---------- Arranque ---------- */
   (function init() {
-    var raw = null;
-    try { raw = sessionStorage.getItem("mira_admin_session"); } catch (e) { raw = null; }
-    if (raw) {
-      try {
-        var sess = JSON.parse(raw);
-        if (sess && sess.email) { startApp(sess.email); return; }
-      } catch (e) { /* sessão danificada: volta ao acesso */ }
-    }
+    var sess = getSession();
+    if (sess) { startApp(sess.email); return; }
+    /* Migração: uma sessão antiga guardada em sessionStorage passa
+       para localStorage, para continuar válida depois de fechar a aba. */
+    try {
+      var legacy = sessionStorage.getItem("mira_admin_session");
+      if (legacy) {
+        var old = JSON.parse(legacy);
+        if (old && old.email) { setSession(old.email); startApp(old.email); return; }
+      }
+    } catch (e) { /* sessão danificada: volta ao acesso */ }
     $("gate").hidden = false;
     $("app").hidden = true;
     $("topbarActions").hidden = true;
