@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-<video class="admin-bg-video" src="media/mira-fundo.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
 <header class="topbar">
   <div>
     <strong class="brand">MIRA</strong>
@@ -15,10 +14,7 @@
   </div>
   <div class="topbar-actions" id="topbarActions" hidden>
     <span class="session-email" id="sessionEmail"></span>
-    <button class="btn" type="button" id="exportBtn">Exportar cópia (JSON)</button>
-    <label class="btn" for="importFile">Importar cópia (JSON)</label>
-    <input type="file" id="importFile" accept="application/json" hidden>
-    <button class="btn" type="button" id="logoutBtn">Sair</button>
+    <button class="btn btn-secondary" type="button" id="logoutBtn">Sair</button>
   </div>
 </header>
 
@@ -29,41 +25,60 @@
     <form id="gateForm">
       <label for="adminEmail">Email do administrador</label>
       <input type="email" id="adminEmail" required placeholder="o teu email de administrador">
+      <label for="adminPassword">Palavra-passe</label>
+      <input type="password" id="adminPassword" placeholder="a tua palavra-passe" autocomplete="current-password">
+      <p class="help gate-note">A palavra-passe só fica ativa quando o painel ligar à Supabase — por agora entra só com o email do administrador. Se escreveres uma palavra-passe aqui, ela é ignorada por agora e não fica guardada.</p>
       <button class="btn btn-primary" type="submit">Entrar no painel</button>
     </form>
   </section>
 
   <div id="app" hidden>
-    <nav class="tabs" aria-label="Secções do painel">
-      <button class="tab-btn" type="button" data-sec="inicio">Início</button>
-      <button class="tab-btn" type="button" data-sec="logo-hero">Logo e Hero</button>
-      <button class="tab-btn" type="button" data-sec="logos">Logos</button>
-      <button class="tab-btn" type="button" data-sec="trabalhos">Trabalhos</button>
-      <button class="tab-btn" type="button" data-sec="marcas">Faixa de marcas</button>
-      <button class="tab-btn" type="button" data-sec="fazemos">O que fazemos</button>
-      <button class="tab-btn" type="button" data-sec="sobre-fotos">Sobre — Fotos</button>
-      <button class="tab-btn" type="button" data-sec="pormenores">Pormenores</button>
-      <button class="tab-btn" type="button" data-sec="textos">Sobre e Percurso</button>
-      <button class="tab-btn" type="button" data-sec="servicos">Serviços e preços</button>
-      <button class="tab-btn" type="button" data-sec="menu">Menu</button>
-      <button class="tab-btn" type="button" data-sec="contacto">Contacto e WhatsApp</button>
-      <button class="tab-btn" type="button" data-sec="sessao">Sessão</button>
-      <button class="tab-btn" type="button" data-sec="chats">Chats</button>
-      <button class="tab-btn" type="button" data-sec="pedidos">Pedidos</button>
-      <button class="tab-btn" type="button" data-sec="clientes">Clientes</button>
-      <button class="tab-btn" type="button" data-sec="visitantes">Visitantes</button>
+  <div class="admin-layout">
+    <nav class="admin-nav" aria-label="Secções do painel">
+      <button class="nav-menu-btn" type="button" id="sectionsBtn" aria-expanded="false">Secções</button>
+      <div class="admin-nav-list" id="sectionsList" hidden>
+      <button class="nav-item nav-item-home" type="button" data-sec="inicio">Início</button>
+      <div class="nav-group"><h3>Conteúdo</h3>
+      <button class="nav-item" type="button" data-sec="logo-hero">Logo e Hero</button>
+      <button class="nav-item" type="button" data-sec="logos">Logos</button>
+      <button class="nav-item" type="button" data-sec="trabalhos">Trabalhos</button>
+      <button class="nav-item" type="button" data-sec="marcas">Faixa de marcas</button>
+      <button class="nav-item" type="button" data-sec="fazemos">O que fazemos</button>
+      <button class="nav-item" type="button" data-sec="sobre-fotos">Sobre — Fotos</button>
+      <button class="nav-item" type="button" data-sec="pormenores">Pormenores</button>
+      <button class="nav-item" type="button" data-sec="textos">Sobre e Percurso</button></div>
+      <div class="nav-group"><h3>Serviços</h3>
+      <button class="nav-item" type="button" data-sec="servicos">Serviços e preços</button>
+      <button class="nav-item" type="button" data-sec="menu">Menu</button></div>
+      <div class="nav-group"><h3>Contacto</h3>
+      <button class="nav-item" type="button" data-sec="contacto">Contacto e WhatsApp</button></div>
+      <div class="nav-group"><h3>Gestão</h3>
+      <button class="nav-item" type="button" data-sec="chats">Chats</button>
+      <button class="nav-item" type="button" data-sec="pedidos">Pedidos</button>
+      <button class="nav-item" type="button" data-sec="clientes">Clientes</button>
+      <button class="nav-item" type="button" data-sec="visitantes">Visitantes</button>
+      <button class="nav-item" type="button" data-sec="sessao">Sessão</button></div>
+      </div>
     </nav>
+    <div class="admin-panels">
 
     <section id="sec-inicio" class="panel">
       <h2>Como funciona, de ponta a ponta</h2>
       <p class="lead">O comprador do site muda tudo aqui, sem tocar em código e sem depender de quem vendeu. Cada secção guarda logo que carregas em <strong>Guardar</strong>.</p>
       <ol class="steps">
         <li><strong>1. Entra</strong> com o teu email de administrador.</li>
-        <li><strong>2. Escolhe uma secção</strong> nos botões em cima: imagens, vídeos, textos, serviços, preços, menu, contacto, sessão, chats, pedidos, clientes e visitantes.</li>
+        <li><strong>2. Escolhe uma secção</strong> no botão “Secções”: imagens, vídeos, textos, serviços, preços, menu, contacto, sessão, chats, pedidos, clientes e visitantes.</li>
         <li><strong>3. Edita e guarda.</strong> Imagens e vídeos entram sempre por ficheiro (botão “Escolher ficheiro”), nunca por link. Vês a pré-visualização antes de guardar.</li>
         <li><strong>4. Confere no site.</strong> Depois de guardar, abre o site e vê a mudança. Se não aparecer, recarrega a página.</li>
-        <li><strong>5. Faz cópia.</strong> Usa “Exportar cópia (JSON)” no topo para guardar tudo num ficheiro. Se alguma coisa correr mal, “Importar cópia” repõe tudo.</li>
+        <li><strong>5. Faz cópia.</strong> Usa “Exportar cópia (JSON)” em baixo, na secção Início, para guardar tudo num ficheiro. Se alguma coisa correr mal, “Importar cópia” repõe tudo.</li>
       </ol>
+      <h3>Cópia de segurança</h3>
+      <p class="help">Guarda uma cópia de tudo num ficheiro, ou repõe uma cópia antiga.</p>
+      <div class="backup-row">
+        <button class="btn btn-secondary" type="button" id="exportBtn">Exportar cópia (JSON)</button>
+        <label class="btn btn-secondary" for="importFile">Importar cópia (JSON)</label>
+        <input type="file" id="importFile" accept="application/json" hidden>
+      </div>
       <h3>Resumo rápido</h3>
       <div id="summary" class="summary"></div>
     </section>
@@ -337,13 +352,15 @@
       <h2>Ver o site</h2>
       <p>Abre a página principal para veres as mudanças que guardaste. Cada secção guarda quando carregas em Guardar nessa secção.</p>
       <div class="footer-actions">
-        <a class="btn btn-primary btn-big" href="index.html" target="_blank" rel="noopener noreferrer">Ver o site →</a>
-        <button class="btn btn-primary btn-big" type="button" id="saveAndViewBtn">Guardar e ver o site</button>
-        <button class="btn btn-small" type="button" id="switchSessionBtn">Mudar de sessão</button>
+        <a class="btn btn-primary" href="index.html" target="_blank" rel="noopener noreferrer">Ver o site →</a>
+        <button class="btn btn-secondary" type="button" id="saveAndViewBtn">Guardar e ver o site</button>
+        <button class="btn btn-secondary btn-small" type="button" id="switchSessionBtn">Mudar de sessão</button>
       </div>
       <p class="help">“Guardar e ver o site” não guarda alterações que ainda não guardaste nessa secção: abre a página principal para conferires as mudanças que já guardaste em cada secção.</p>
       <p class="help">“Mudar de sessão” termina a sessão atual e volta ao acesso, para entrares com outro email.</p>
     </footer>
+    </div>
+  </div>
   </div>
 </main>
 
