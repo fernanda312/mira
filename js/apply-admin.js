@@ -28,7 +28,44 @@
   function fmtMT(n) {
     var num = Number(n);
     if (!isFinite(num)) return null;
-    return num.toLocaleString("pt-PT").replace(/,/g, " ") + " MT";
+    /* Mesmo formato do site: ponto como separador de milhares. */
+    return num.toLocaleString("pt-PT").replace(/[,\s]/g, ".").replace(/\.00$/, "") + " MT";
+  }
+  function renderPrice(priceEl, item) {
+    /* Preserva o bloco de preço desenhado de servicos.html: etiqueta
+       pequena + montante grande em verde-lima + unidade. Nunca pôr
+       o preço como texto simples, senão o desenho desaparece. */
+    var num = Number(item.price);
+    if (!isFinite(num)) return;
+    var amount = num.toLocaleString("pt-PT").replace(/[,\s]/g, ".");
+    var unit = item.monthly ? "MT/mês" : "MT";
+    var label = priceEl.querySelector(".price-label");
+    if (!label) {
+      label = document.createElement("span");
+      label.className = "price-label";
+      priceEl.appendChild(label);
+    }
+    label.textContent = "A partir de";
+    var amt = priceEl.querySelector(".price-amount");
+    if (!amt) {
+      amt = document.createElement("span");
+      amt.className = "price-amount";
+      priceEl.appendChild(amt);
+    }
+    /* Limpa o montante e repõe só a unidade, para não acumular texto. */
+    while (amt.firstChild) amt.removeChild(amt.firstChild);
+    amt.appendChild(document.createTextNode(amount + " "));
+    var u = document.createElement("span");
+    u.className = "price-unit";
+    u.textContent = unit;
+    amt.appendChild(u);
+    /* Remove qualquer texto simples solto que uma versão anterior
+       tenha deixado dentro do bloco de preço. */
+    Array.prototype.slice.call(priceEl.childNodes).forEach(function (node) {
+      if (node.nodeType === 3 && node.textContent.trim() !== "") {
+        priceEl.removeChild(node);
+      }
+    });
   }
   function isVideo(item) {
     if (!item || !item.src) return false;
@@ -227,10 +264,7 @@
       if (descEl && typeof item.desc === "string") descEl.textContent = item.desc;
       var priceEl = sec.querySelector(".price");
       if (priceEl) {
-        var price = fmtMT(item.price);
-        if (price !== null) {
-          priceEl.textContent = "A partir de " + price + (item.monthly ? "/mês" : "");
-        }
+        renderPrice(priceEl, item);
       }
     });
     /* Não se adicionam nem removem secções de serviço: uma lista do
