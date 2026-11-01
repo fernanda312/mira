@@ -433,3 +433,32 @@ section.mira-work#trabalhos,
   transform: none !important;
   animation: none !important;
 }
+
+/* OWNER FIX 2026-11-01 — Trabalhos gallery full viewport width.
+   Section width 100% only filled the narrow centred ancestor column,
+   leaving dark page background on both sides. This breakout makes
+   ONLY #trabalhos and its gallery span the full viewport width. */
+#trabalhos,
+.mira-trabalhos-gallery {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  padding: 0 !important;
+  position: relative !important;
+  left: auto !important;
+}
+.mira-trabalhos-gallery img {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+/* Ancestors of #trabalhos only, so the breakout is not clipped. */
+.home-chapters,
+.shell-content {
+  overflow: visible !important;
+}
