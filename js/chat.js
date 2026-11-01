@@ -45,9 +45,11 @@
   function init() {
     var style = document.createElement("style");
     style.textContent =
-      "#mira-chat-btn{position:fixed;right:1rem;bottom:1rem;z-index:9999;width:56px;height:56px;background:#0b3d2e;color:#fff;border:1px solid #0b3d2e;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;font-size:26px;line-height:1;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.5);}" +
+      "#mira-chat-btn{position:fixed;right:16px;bottom:88px;z-index:9999;width:56px;height:56px;background:#0b3d2e;color:#fff;border:1px solid #0b3d2e;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;font-size:26px;line-height:1;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.5);}" +
       "#mira-chat-btn:hover{background:#145a44;}" +
-      "#mira-chat-panel{position:fixed;right:1rem;bottom:4.5rem;z-index:9999;width:min(360px,92vw);background:#121212;color:#fff;border:1px solid #2b2b2b;border-radius:16px;padding:1rem;font:1rem Inter,system-ui,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.6);}" +
+      "#mira-wa-btn{position:fixed;right:16px;bottom:16px;z-index:9998;display:flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#128C7E,#25D366);color:#fff;border:0;border-radius:999px;padding:.7rem 1.1rem;font:700 1rem Inter,system-ui,sans-serif;text-decoration:none;cursor:pointer;box-shadow:0 8px 24px rgba(37,211,102,.35);}" +
+      "#mira-wa-btn:hover{filter:brightness(1.1);}" +
+      "#mira-chat-panel{position:fixed;right:16px;bottom:160px;z-index:9999;width:min(360px,92vw);background:#121212;color:#fff;border:1px solid #2b2b2b;border-radius:16px;padding:1rem;font:1rem Inter,system-ui,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.6);}" +
       "#mira-chat-list{max-height:280px;overflow-y:auto;margin:.5rem 0;}" +
       "#mira-chat-panel input,#mira-chat-panel textarea{width:100%;background:#000;color:#fff;border:1px solid #2b2b2b;border-radius:10px;padding:.6rem .8rem;font:inherit;margin:.3rem 0;box-sizing:border-box;}" +
       "#mira-chat-send{background:#0b3d2e;color:#fff;border:1px solid #0b3d2e;border-radius:999px;padding:.65rem 1.3rem;font:700 1rem Inter,system-ui,sans-serif;cursor:pointer;width:100%;}" +
@@ -100,6 +102,25 @@
       '<textarea id="mira-chat-text" rows="3" placeholder="Escreve a tua mensagem…"></textarea>' +
       '<button id="mira-chat-send" type="button">Enviar mensagem</button>' +
       '<p style="color:#bdbdbd;font-size:.85rem;">A tua mensagem fica guardada para o estúdio responder.</p>';
+    function whatsappHref(genericText) {
+      try {
+        var c = JSON.parse(localStorage.getItem("mira_admin_contact") || "{}");
+        var link = c.quoteLink ? String(c.quoteLink).trim() : "";
+        if (link) {
+          if (link.indexOf("?") >= 0) return link;
+          return link + "?text=" + encodeURIComponent(genericText);
+        }
+      } catch (e) {}
+      return "https://wa.me/258840000000?text=" + encodeURIComponent(genericText);
+    }
+    var waBtn = document.createElement("a");
+    waBtn.id = "mira-wa-btn";
+    waBtn.className = "btn-orcamento";
+    waBtn.href = whatsappHref("Olá MIRA, quero pedir um orçamento.");
+    waBtn.target = "_blank"; waBtn.rel = "noopener noreferrer";
+    waBtn.setAttribute("aria-label", "Pedir orçamento pelo WhatsApp");
+    waBtn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-3-.4-4.2-1.1L3 20l1.1-5.3A8.5 8.5 0 1 1 21 11.5z"/><path d="M8.5 9.5c.7 2.3 2.7 4.3 5 5l1.2-1.2 2 1.2c-.2 1-1.2 1.5-2 1.2C11.5 14.5 9.5 12.5 8.3 9.3c-.3-.8.7-1.8 1.7-1.5l1.2 1.2-1.2 1.2z" fill="currentColor" stroke="none"/></svg><span>WhatsApp</span>';
+    document.body.appendChild(waBtn);
     document.body.appendChild(btn);
     document.body.appendChild(panel);
     var list = panel.querySelector("#mira-chat-list");

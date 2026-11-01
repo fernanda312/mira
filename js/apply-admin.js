@@ -347,9 +347,17 @@
       var quoteBtns = document.querySelectorAll(".btn-orcamento");
       quoteBtns.forEach(function (a) {
         if (quoteLink.indexOf("?") >= 0) { a.setAttribute("href", quoteLink); return; }
-        var sec = a.closest(".service");
-        var h2 = sec ? sec.querySelector("h2") : null;
-        var svc = h2 ? h2.textContent.trim() : "";
+        var svc = a.getAttribute("data-service") || "";
+        if (!svc) {
+          var sec = a.closest(".service");
+          var h2 = sec ? sec.querySelector("h2") : null;
+          svc = h2 ? h2.textContent.trim() : "";
+        }
+        if (!svc) {
+          var row = a.closest(".mira-home-service");
+          var st = row ? row.querySelector("strong") : null;
+          svc = st ? st.textContent.trim() : "";
+        }
         var text = svc ? "Olá MIRA, quero pedir um orçamento para " + svc + "." : "Olá MIRA, quero pedir um orçamento.";
         a.setAttribute("href", quoteLink + "?text=" + encodeURIComponent(text));
       });
@@ -410,24 +418,58 @@
   }
 
   /* ---------- Lista de Serviços na página inicial ----------
-     A lista compacta debaixo de "Serviços" no Percurso segue os nomes
-     guardados no painel, por ordem. Só reconstrói se a lista existir. */
+     O bloco "Serviços e preços" na página inicial segue os nomes e
+     preços guardados no painel, por ordem. Só reconstrói se a lista
+     nova (#mira-home-services-list) existir; sem ela, não faz nada. */
   function applyHomeServices() {
     var list = load("mira_admin_services");
     if (!Array.isArray(list)) return;
     var valid = list.filter(function (s) { return isObj(s) && isStr(s.name); });
     if (!valid.length) return;
-    var ol = document.querySelector('ol[aria-labelledby="resume-education"]');
-    if (!ol) return;
-    while (ol.firstChild) ol.removeChild(ol.firstChild);
+    var ul = document.querySelector("#mira-home-services-list");
+    if (!ul) return;
+    var contact = load("mira_admin_contact");
+    var quoteLink = (contact && isStr(contact.quoteLink)) ? contact.quoteLink.trim() : null;
+    function waHref(name) {
+      var text = "Olá MIRA, quero pedir um orçamento para " + name + ".";
+      if (quoteLink) {
+        if (quoteLink.indexOf("?") >= 0) return quoteLink;
+        return quoteLink + "?text=" + encodeURIComponent(text);
+      }
+      return "https://wa.me/258840000000?text=" + encodeURIComponent(text);
+    }
+    function fmtPrice(item) {
+      var num = Number(item.price || 0);
+      var amount = num.toLocaleString("pt-PT").replace(/[,\s]/g, ".");
+      return "A partir de " + amount + " MT" + (item.monthly ? "/mês" : "");
+    }
+    while (ul.firstChild) ul.removeChild(ul.firstChild);
     valid.forEach(function (item) {
       var li = document.createElement("li");
-      li.className = "resume-entry";
-      var role = document.createElement("p");
-      role.className = "resume-entry-role";
-      role.textContent = item.name;
-      li.appendChild(role);
-      ol.appendChild(li);
+      li.className = "mira-home-service";
+      var div = document.createElement("div");
+      var st = document.createElement("strong");
+      st.textContent = item.name;
+      div.appendChild(st);
+      if (isStr(item.desc)) {
+        var ds = document.createElement("span");
+        ds.className = "mira-home-service-desc";
+        ds.textContent = item.desc;
+        div.appendChild(ds);
+      }
+      li.appendChild(div);
+      var pr = document.createElement("span");
+      pr.className = "mira-home-service-price";
+      pr.textContent = fmtPrice(item);
+      li.appendChild(pr);
+      var a = document.createElement("a");
+      a.className = "btn-orcamento";
+      a.setAttribute("data-service", item.name);
+      a.href = waHref(item.name);
+      a.target = "_blank"; a.rel = "noopener noreferrer";
+      a.textContent = "Solicitar pelo WhatsApp →";
+      li.appendChild(a);
+      ul.appendChild(li);
     });
   }
 
