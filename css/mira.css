@@ -620,3 +620,7 @@ header.identity-rail .mira-wordmark{color:#ffffff!important}
   .mira-home-services-title{font-size:1.6rem!important}
   .mira-home-services{padding:18px 16px!important}
 }
+
+/* Botão discreto do admin no final do site. */
+.mira-site-footer{text-align:center;padding:2rem 1rem 4rem!important}
+.mira-site-footer a{color:#888888!important;font-size:.8rem!important;text-decoration:none!important}
