@@ -149,7 +149,7 @@ header.identity-rail{background:transparent!important;background-color:transpare
 /* 3. Brands strip: the ONLY black content strip, white letters, seamless loop
    with soft edge fade so no end/seam is ever visible. Track is two identical
    groups and animates exactly -50%; it never pauses on click/touch. */
-.mira-brands{background:#000000!important;background-color:#000000!important;-webkit-mask-image:linear-gradient(to right,transparent 0,#000000 8%,#000000 92%,transparent 100%)!important;mask-image:linear-gradient(to right,transparent 0,#000000 8%,#000000 92%,transparent 100%)!important}
+.mira-brands{background:#000000!important;background-color:#000000!important;-webkit-mask-image:none!important;mask-image:none!important}
 .mira-brands-track{animation:mira-brands-scroll 32s linear infinite!important;animation-play-state:running!important}
 .mira-brands:hover .mira-brands-track,.mira-brands:focus .mira-brands-track,.mira-brands:active .mira-brands-track,.mira-brands:focus-within .mira-brands-track,.mira-brands-track:hover,.mira-brands-track:active{animation-play-state:running!important}
 .mira-brand{color:#ffffff!important}
@@ -267,4 +267,85 @@ section#intro.chapter--hero img,
   padding: 0 !important;
   background: #000000 !important;
   background-color: #000000 !important;
+}
+
+/* OWNER CORRECTION 2026-11-01 — pasta removed, no smoked/blurred edges, logos not zoomed. Scoped only; nothing else changed. */
+
+/* 1. Trabalhos pulled up directly under the hero: no gap left by the deleted pasta figure. */
+#trabalhos { margin-top: 0 !important; padding-top: 0 !important; }
+#trabalhos h2 { margin-top: 0 !important; padding-top: 0 !important; }
+.mira-work#trabalhos { margin-top: 0 !important; padding-top: 0 !important; }
+
+/* 2. NO smoked / blurred / mirrored border layers anywhere on strips or cards.
+   The brands strip's edge-fade mask is removed outright; no fade, blur or
+   shadow layer is added in its place. The strips still loop seamlessly
+   because each track is two identical groups animating exactly -50%. */
+.mira-brands,
+.mira-brands-track,
+.mira-brands-group,
+.mira-logos,
+.mira-logos-track,
+.mira-logos-group,
+.mira-carousel,
+.mira-carousel-track,
+.mira-carousel-group,
+.mira-work-card,
+.mira-carousel-card,
+.mira-fazemos-card {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+.mira-brands { -webkit-mask-image: none !important; mask-image: none !important; }
+
+/* 3. Logos: decisively small, whole, never zoomed. Desktop size first. */
+section.mira-logos img,
+.mira-logos img,
+.mira-logos-track img,
+.mira-logos-group img,
+.mira-logos-group img.mira-logo,
+.mira-logos img.mira-logo,
+img.mira-logo {
+  height: 56px !important;
+  max-height: 56px !important;
+  min-height: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  flex: none !important;
+  flex-shrink: 0 !important;
+  object-fit: contain !important;
+  transform: none !important;
+  display: block !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.mira-logos-track { display: flex !important; flex-direction: row !important; align-items: center !important; width: max-content !important; overflow: visible !important; }
+.mira-logos-group { display: flex !important; flex-direction: row !important; align-items: center !important; flex: none !important; flex-shrink: 0 !important; gap: 2rem !important; padding-right: 2rem !important; }
+.mira-logos { overflow: hidden !important; }
+
+/* Phone: logos even smaller, so wide wordmarks never fill the screen width. */
+@media (max-width: 768px) {
+  section.mira-logos img,
+  .mira-logos img,
+  .mira-logos-track img,
+  .mira-logos-group img,
+  .mira-logos-group img.mira-logo,
+  .mira-logos img.mira-logo,
+  img.mira-logo {
+    height: 40px !important;
+    max-height: 40px !important;
+    width: auto !important;
+    max-width: none !important;
+    transform: none !important;
+  }
+  .mira-logos-group { gap: 1.5rem !important; padding-right: 1.5rem !important; }
 }
