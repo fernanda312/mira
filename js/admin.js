@@ -125,7 +125,7 @@
       { name: "Direcção de arte", desc: "Direcção de arte para marca, produto e site, em conjunto.", price: 20000, monthly: false , img: "images/servico-hand.jpg", kind: "image" },
       { name: "Acompanhamento e evolução do site", desc: "Depois de entregar, acompanhamos o uso e ajustamos o que for preciso.", price: 10000, monthly: true , img: "images/servico-tyler.jpg", kind: "image" }
     ],
-    contact: { heading: "O resto da história é uma conversa.", whatsapp: "", note: "", linkedin: "", x: "", email: "" },
+    contact: { heading: "O resto da história é uma conversa.", whatsapp: "", note: "", linkedin: "", x: "", email: "", quoteLink: "https://wa.me/258840000000" },
     orders: [],
     clients: [],
     visitors: [
@@ -167,6 +167,7 @@
     if (v.linkedin === undefined) v.linkedin = d.linkedin;
     if (v.x === undefined) v.x = d.x;
     if (v.email === undefined) v.email = d.email;
+    if (v.quoteLink === undefined) v.quoteLink = d.quoteLink;
     return v;
   }
   var S = {
@@ -276,6 +277,12 @@
     toast("Guardado.");
   });
   $("sessionEndBtn").addEventListener("click", function () { endSession(); toast("Sessão terminada."); });
+  /* ---------- Rodapé do painel: ver o site, mudar de sessão ---------- */
+  $("saveAndViewBtn").addEventListener("click", function () {
+    toast("Confere no site as mudanças que já guardaste em cada secção.");
+    window.open("index.html", "_blank");
+  });
+  $("switchSessionBtn").addEventListener("click", function () { endSession(); toast("Sessão terminada. Entra com outro email."); });
   function startApp(email) {
     $("gate").hidden = true;
     $("app").hidden = false;
@@ -434,11 +441,21 @@
     if (!S.fazemos.length) { el.innerHTML = '<p class="empty">Ainda não há cartões. Adiciona o primeiro em baixo.</p>'; return; }
     var rows = S.fazemos.map(function (c, i) {
       return "<tr><td>" + esc(c.type) + "</td><td><strong>" + esc(c.title) + "</strong><br>" + esc(c.desc) + "</td><td>" + mediaTag(c, "thumb") + "</td>" +
-        '<td><button class="btn btn-small" type="button" data-fz-edit="' + i + '">Editar texto</button> ' +
+        '<td><button class="btn btn-small" type="button" data-fz-up="' + i + '">↑ Subir</button> ' +
+        '<button class="btn btn-small" type="button" data-fz-down="' + i + '">↓ Descer</button> ' +
+        '<button class="btn btn-small" type="button" data-fz-edit="' + i + '">Editar texto</button> ' +
         '<label class="btn btn-small">Trocar ficheiro<input type="file" accept="image/*,video/*" hidden data-fz-replace="' + i + '"></label> ' +
         '<button class="btn btn-small btn-danger" type="button" data-fz-del="' + i + '">Remover</button></td></tr>';
     }).join("");
     el.innerHTML = '<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Título e descrição</th><th>Ficheiro</th><th>Ações</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+    var fzMove = function (i, dir) {
+      var j = i + dir;
+      if (j < 0 || j >= S.fazemos.length) return;
+      var tmp = S.fazemos[i]; S.fazemos[i] = S.fazemos[j]; S.fazemos[j] = tmp;
+      if (saveKey("mira_admin_fazemos", S.fazemos)) renderFazemos();
+    };
+    el.querySelectorAll("[data-fz-up]").forEach(function (b) { b.addEventListener("click", function () { fzMove(Number(b.getAttribute("data-fz-up")), -1); }); });
+    el.querySelectorAll("[data-fz-down]").forEach(function (b) { b.addEventListener("click", function () { fzMove(Number(b.getAttribute("data-fz-down")), 1); }); });
     el.querySelectorAll("[data-fz-edit]").forEach(function (b) {
       b.addEventListener("click", function () {
         var idx = Number(b.getAttribute("data-fz-edit"));
@@ -560,12 +577,22 @@
         "<td>" + mediaTag({ src: s.img, kind: s.kind, name: s.name }, "thumb") + "</td>" +
         '<td><input type="number" min="0" step="100" value="' + Number(s.price || 0) + '" data-svc-price="' + i + '" style="width:130px;"> MT' +
         (s.monthly ? " / mês" : "") + "</td>" +
-        '<td><button class="btn btn-small" type="button" data-svc-edit="' + i + '">Editar</button> ' +
+        '<td><button class="btn btn-small" type="button" data-svc-up="' + i + '">↑ Subir</button> ' +
+        '<button class="btn btn-small" type="button" data-svc-down="' + i + '">↓ Descer</button> ' +
+        '<button class="btn btn-small" type="button" data-svc-edit="' + i + '">Editar</button> ' +
         '<label class="btn btn-small">Trocar ficheiro<input type="file" accept="image/*,video/*" hidden data-svc-replace="' + i + '"></label> ' +
         '<button class="btn btn-small btn-danger" type="button" data-svc-del="' + i + '">Remover</button></td></tr>';
     }).join("");
     el.innerHTML = '<div class="table-wrap"><table><thead><tr><th>Serviço</th><th>Descrição</th><th>Imagem / vídeo</th><th>Preço</th><th>Ações</th></tr></thead><tbody>' + rows + "</tbody></table></div>" +
       '<button class="btn btn-primary" type="button" id="servicesSaveBtn">Guardar preços</button>';
+    var svcMove = function (i, dir) {
+      var j = i + dir;
+      if (j < 0 || j >= S.services.length) return;
+      var tmp = S.services[i]; S.services[i] = S.services[j]; S.services[j] = tmp;
+      if (saveKey("mira_admin_services", S.services)) renderServices();
+    };
+    el.querySelectorAll("[data-svc-up]").forEach(function (b) { b.addEventListener("click", function () { svcMove(Number(b.getAttribute("data-svc-up")), -1); }); });
+    el.querySelectorAll("[data-svc-down]").forEach(function (b) { b.addEventListener("click", function () { svcMove(Number(b.getAttribute("data-svc-down")), 1); }); });
     el.querySelectorAll("[data-svc-edit]").forEach(function (b) {
       b.addEventListener("click", function () {
         var idx = Number(b.getAttribute("data-svc-edit"));
@@ -627,8 +654,19 @@
     list.innerHTML = S.menu.tiles.map(function (t, i) {
       return '<div class="preview-row"><img src="' + esc(pendingMenuTiles[i] || t.src || "") + '" alt="Pré-visualização de ' + esc(t.title) + '">' +
         '<div><label>Título do cartão ' + (i + 1) + ' <input type="text" data-menu-title="' + i + '" value="' + esc(t.title) + '"></label> ' +
+        '<button class="btn btn-small" type="button" data-menu-up="' + i + '">↑ Subir</button> ' +
+        '<button class="btn btn-small" type="button" data-menu-down="' + i + '">↓ Descer</button> ' +
         '<label class="btn btn-small">Trocar ficheiro<input type="file" accept="image/*" hidden data-menu-replace="' + i + '"></label></div></div>';
     }).join("");
+    var menuMove = function (i, dir) {
+      var j = i + dir;
+      if (j < 0 || j >= S.menu.tiles.length) return;
+      var tmp = S.menu.tiles[i]; S.menu.tiles[i] = S.menu.tiles[j]; S.menu.tiles[j] = tmp;
+      var tmpP = pendingMenuTiles[i]; pendingMenuTiles[i] = pendingMenuTiles[j]; pendingMenuTiles[j] = tmpP;
+      if (saveKey("mira_admin_menu", S.menu)) fillMenu();
+    };
+    list.querySelectorAll("[data-menu-up]").forEach(function (b) { b.addEventListener("click", function () { menuMove(Number(b.getAttribute("data-menu-up")), -1); }); });
+    list.querySelectorAll("[data-menu-down]").forEach(function (b) { b.addEventListener("click", function () { menuMove(Number(b.getAttribute("data-menu-down")), 1); }); });
     list.querySelectorAll("[data-menu-replace]").forEach(function (input) {
       input.addEventListener("change", function () {
         var idx = Number(input.getAttribute("data-menu-replace"));
@@ -667,6 +705,7 @@
     $("contactLinkedin").value = S.contact.linkedin || "";
     $("contactX").value = S.contact.x || "";
     $("contactEmail").value = S.contact.email || "";
+    $("contactQuoteLink").value = S.contact.quoteLink || "";
   }
   $("contactForm").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -676,6 +715,7 @@
     S.contact.linkedin = $("contactLinkedin").value.trim();
     S.contact.x = $("contactX").value.trim();
     S.contact.email = $("contactEmail").value.trim();
+    S.contact.quoteLink = $("contactQuoteLink").value.trim();
     saveKey("mira_admin_contact", S.contact);
   });
 
@@ -777,10 +817,54 @@
     if (saveKey("mira_admin_clients", S.clients)) { renderClients(); e.target.reset(); }
   });
   function renderVisitors() {
-    $("visitorsList").innerHTML = S.visitors.map(function (v, i) {
-      return '<label>Visitas — ' + esc(v.page) + ' <input type="number" min="0" data-visitor="' + i + '" value="' + Number(v.count || 0) + '"></label>';
+    var el = $("visitorsList");
+    if (!S.visitors.length) { el.innerHTML = '<p class="empty">Ainda não há páginas de visitantes. Adiciona a primeira em baixo.</p>'; return; }
+    var rows = S.visitors.map(function (v, i) {
+      return "<tr><td>" + esc(v.page) + "</td>" +
+        '<td><input type="number" min="0" data-visitor="' + i + '" value="' + Number(v.count || 0) + '" style="width:110px;"></td>' +
+        '<td><button class="btn btn-small" type="button" data-vis-edit="' + i + '">Editar</button> ' +
+        '<button class="btn btn-small" type="button" data-vis-up="' + i + '">↑ Subir</button> ' +
+        '<button class="btn btn-small" type="button" data-vis-down="' + i + '">↓ Descer</button> ' +
+        '<button class="btn btn-small btn-danger" type="button" data-vis-del="' + i + '">Remover</button></td></tr>';
     }).join("");
+    el.innerHTML = '<div class="table-wrap"><table><thead><tr><th>Página</th><th>Visitas</th><th>Ações</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+    var visMove = function (i, dir) {
+      var j = i + dir;
+      if (j < 0 || j >= S.visitors.length) return;
+      var tmp = S.visitors[i]; S.visitors[i] = S.visitors[j]; S.visitors[j] = tmp;
+      if (saveKey("mira_admin_visitors", S.visitors)) renderVisitors();
+    };
+    el.querySelectorAll("[data-vis-edit]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var idx = Number(b.getAttribute("data-vis-edit"));
+        var v = S.visitors[idx];
+        var page = prompt("Página:", v.page);
+        if (page === null) return;
+        var count = prompt("Visitas:", String(Number(v.count || 0)));
+        if (count === null) return;
+        v.page = page.trim() || v.page;
+        v.count = Number(count || 0);
+        if (saveKey("mira_admin_visitors", S.visitors)) renderVisitors();
+      });
+    });
+    el.querySelectorAll("[data-vis-up]").forEach(function (b) { b.addEventListener("click", function () { visMove(Number(b.getAttribute("data-vis-up")), -1); }); });
+    el.querySelectorAll("[data-vis-down]").forEach(function (b) { b.addEventListener("click", function () { visMove(Number(b.getAttribute("data-vis-down")), 1); }); });
+    el.querySelectorAll("[data-vis-del]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var idx = Number(b.getAttribute("data-vis-del"));
+        if (!confirm("Remover a página “" + S.visitors[idx].page + "”?")) return;
+        S.visitors.splice(idx, 1);
+        if (saveKey("mira_admin_visitors", S.visitors)) renderVisitors();
+      });
+    });
   }
+  $("visitorAddForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var page = $("visitorAddPage").value.trim();
+    if (!page) return;
+    S.visitors.push({ page: page, count: Number($("visitorAddCount").value || 0) });
+    if (saveKey("mira_admin_visitors", S.visitors)) { renderVisitors(); e.target.reset(); $("visitorAddCount").value = "0"; }
+  });
   $("visitorsForm").addEventListener("submit", function (e) {
     e.preventDefault();
     $("visitorsList").querySelectorAll("[data-visitor]").forEach(function (input) {

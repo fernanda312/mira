@@ -339,6 +339,21 @@
     var social = document.querySelectorAll(".menu-contact-social");
     if (social.length >= 1 && linkedin) social[0].setAttribute("href", linkedin);
     if (social.length >= 2 && x) social[1].setAttribute("href", x);
+    /* Botão "Pedir orçamento": usa o link do WhatsApp guardado no painel
+       quando está preenchido; sem link preenchido, fica o link por cartão
+       que já vem na página (com o nome do serviço no texto). */
+    var quoteLink = isStr(c.quoteLink) ? c.quoteLink.trim() : null;
+    if (quoteLink) {
+      var quoteBtns = document.querySelectorAll(".btn-orcamento");
+      quoteBtns.forEach(function (a) {
+        if (quoteLink.indexOf("?") >= 0) { a.setAttribute("href", quoteLink); return; }
+        var sec = a.closest(".service");
+        var h2 = sec ? sec.querySelector("h2") : null;
+        var svc = h2 ? h2.textContent.trim() : "";
+        var text = svc ? "Olá MIRA, quero pedir um orçamento para " + svc + "." : "Olá MIRA, quero pedir um orçamento.";
+        a.setAttribute("href", quoteLink + "?text=" + encodeURIComponent(text));
+      });
+    }
   }
 
   /* ---------- mira_admin_services: preços em servicos.html ----------
