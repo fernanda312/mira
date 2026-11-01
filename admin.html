@@ -260,6 +260,8 @@
         <input type="text" id="contactHeading">
         <label for="whatsapp">Número de WhatsApp (só números, com indicativo do país)</label>
         <input type="tel" id="whatsapp" placeholder="+258 …">
+        <label for="contactQuoteLink">Link do WhatsApp para orçamentos</label>
+        <input type="text" id="contactQuoteLink" placeholder="https://wa.me/258840000000">
         <label for="contactNote">Nota para os visitantes</label>
         <textarea id="contactNote" rows="3"></textarea>
         <label for="contactLinkedin">LinkedIn (ligação completa, por exemplo https://www.linkedin.com/…)</label>
@@ -323,7 +325,25 @@
         <div id="visitorsList"></div>
         <button class="btn btn-primary" type="submit">Guardar contagens</button>
       </form>
+      <h3>Adicionar página de visitantes</h3>
+      <form id="visitorAddForm" class="inline-form">
+        <label>Página <input type="text" id="visitorAddPage" required></label>
+        <label>Visitas <input type="number" id="visitorAddCount" min="0" value="0" required></label>
+        <button class="btn btn-primary" type="submit">Adicionar página</button>
+      </form>
     </section>
+
+    <footer class="card admin-footer">
+      <h2>Ver o site</h2>
+      <p>Abre a página principal para veres as mudanças que guardaste. Cada secção guarda quando carregas em Guardar nessa secção.</p>
+      <div class="footer-actions">
+        <a class="btn btn-primary btn-big" href="index.html" target="_blank" rel="noopener noreferrer">Ver o site →</a>
+        <button class="btn btn-primary btn-big" type="button" id="saveAndViewBtn">Guardar e ver o site</button>
+        <button class="btn btn-small" type="button" id="switchSessionBtn">Mudar de sessão</button>
+      </div>
+      <p class="help">“Guardar e ver o site” não guarda alterações que ainda não guardaste nessa secção: abre a página principal para conferires as mudanças que já guardaste em cada secção.</p>
+      <p class="help">“Mudar de sessão” termina a sessão atual e volta ao acesso, para entrares com outro email.</p>
+    </footer>
   </div>
 </main>
 
