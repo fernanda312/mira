@@ -387,3 +387,109 @@ img.mira-logo {
     max-width: 150px !important;
   }
 }
+
+/* OWNER CORRECTION 2026-11-01 02:54 — Trabalhos: replace white cards with
+   the 6 sent images, exactly as they are, one at a time, full screen width.
+   Why the old "mirrored/smoked side" happened: the old carousel showed
+   half a white card peeking at the screen edge, and the gaps between cards
+   (plus the section's 1.5rem side padding) let the blurred green background
+   video show through at the sides. This slider kills both: it breaks out
+   of the section padding to full viewport width, has zero gaps, a solid
+   black background, overflow hidden, and steps by whole slides only — so
+   no partial next image is ever visible at either edge. It is NOT a
+   continuous marquee. New class names are used on purpose so none of the
+   old white-card carousel rules can touch it. */
+.mira-trabalhos-slider {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+  gap: 0 !important;
+}
+.mira-trabalhos-track {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: 600% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  filter: none !important;
+  animation: mira-trabalhos-step 36s linear infinite !important;
+  animation-play-state: running !important;
+}
+.mira-trabalhos-slider:hover .mira-trabalhos-track,
+.mira-trabalhos-slider:focus .mira-trabalhos-track,
+.mira-trabalhos-slider:active .mira-trabalhos-track,
+.mira-trabalhos-slider:focus-within .mira-trabalhos-track,
+.mira-trabalhos-track:hover,
+.mira-trabalhos-track:active {
+  animation-play-state: running !important;
+}
+.mira-trabalhos-slide {
+  flex: 0 0 16.6667% !important;
+  width: 16.6667% !important;
+  max-width: 16.6667% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  gap: 0 !important;
+}
+.mira-trabalhos-slide img {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  filter: none !important;
+  transform: none !important;
+}
+/* Whole-slide steps only. The track is 600% wide (6 slides), so one full
+   slide = 16.6667% of the track = 100% of the screen width. Each slide
+   holds for ~5s, then steps instantly to the next whole slide; the loop
+   restarts from slide 1. Never a continuous scroll, never two images
+   side by side, never a half image at an edge. */
+@keyframes mira-trabalhos-step {
+  0%, 13.888% { transform: translateX(0); }
+  16.666%, 30.555% { transform: translateX(-16.6667%); }
+  33.333%, 47.222% { transform: translateX(-33.3333%); }
+  50%, 63.888% { transform: translateX(-50%); }
+  66.666%, 80.555% { transform: translateX(-66.6667%); }
+  83.333%, 100% { transform: translateX(-83.3333%); }
+}
