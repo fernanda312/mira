@@ -8,127 +8,179 @@
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; background: #000000; color: #ffffff; font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; }
-  a { color: #ffffff; }
   .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 64px; }
-  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0 24px; border-bottom: 1px solid #333333; }
-  .brand { font-size: 28px; letter-spacing: 0.35em; text-decoration: none; }
-  .back { font-family: Arial, Helvetica, sans-serif; font-size: 15px; text-decoration: none; border: 1px solid #ffffff; border-radius: 999px; padding: 10px 18px; white-space: nowrap; }
-  h1 { font-size: 44px; line-height: 1.1; margin: 32px 0 8px; }
-  .intro { font-size: 18px; color: #dddddd; margin: 0 0 32px; }
-  .service { border-top: 1px solid #333333; padding: 24px 0; }
-  .service h2 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; }
-  .service p { margin: 0 0 10px; color: #dddddd; font-size: 17px; }
-  .price { font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-weight: bold; color: #8dc63f; margin: 0 0 10px; }
-  .cta { font-family: Arial, Helvetica, sans-serif; font-size: 15px; }
-  footer { border-top: 1px solid #333333; margin-top: 16px; padding-top: 24px; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #dddddd; }
-  footer a { display: inline-block; margin-top: 8px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0 28px; }
+  .brand { font-size: 28px; letter-spacing: 0.35em; text-decoration: none; color: #ffffff; }
+  .btn { display: inline-block; font-family: Arial, Helvetica, sans-serif; font-size: 15px; font-weight: bold; text-decoration: none; background: #0b3d2e; color: #ffffff; border: 1px solid #145a44; border-radius: 999px; padding: 12px 22px; white-space: nowrap; cursor: pointer; }
+  .btn:hover { background: #145a44; }
+  .btn-light { background: #ffffff; color: #000000; border-color: #ffffff; }
+  .btn-light:hover { background: #dddddd; }
+  h1 { font-size: 48px; line-height: 1.1; margin: 8px 0 10px; }
+  .intro { font-size: 18px; color: #dddddd; margin: 0 0 36px; max-width: 560px; }
+  .service { background: #141414; border: 1px solid #2b2b2b; border-radius: 20px; overflow: hidden; margin: 0 0 28px; }
+  .service .media { background: #111111; }
+  .service .media img, .service .media video { width: 100%; height: auto; object-fit: contain; display: block; }
+  .service .body { padding: 22px 22px 26px; }
+  .service h2 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; }
+  .service p { margin: 0 0 12px; color: #dddddd; font-size: 17px; }
+  .price { font-family: Arial, Helvetica, sans-serif; font-size: 19px; font-weight: bold; color: #8dc63f; margin: 16px 0 18px; }
+  .cta { display: inline-block; font-family: Arial, Helvetica, sans-serif; font-size: 15px; font-weight: bold; text-decoration: none; background: #0b3d2e; color: #ffffff; border: 1px solid #145a44; border-radius: 999px; padding: 13px 24px; cursor: pointer; }
+  .cta:hover { background: #145a44; }
+  footer { margin-top: 40px; padding-top: 28px; border-top: 1px solid #2b2b2b; }
+  footer p { font-size: 20px; margin: 0 0 18px; }
+  footer .btn { margin: 0 10px 10px 0; }
+  @media (max-width: 480px) {
+    .wrap { padding: 20px 16px 56px; }
+    h1 { font-size: 40px; }
+    .service .body { padding: 18px 18px 22px; }
+    header { flex-wrap: wrap; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <a class="brand" href="index.html">MIRA</a>
-    <a class="back" href="index.html">← Voltar à página inicial</a>
+    <a class="btn" href="index.html">← Voltar à página inicial</a>
   </header>
 
   <h1>Serviços</h1>
   <p class="intro">Todos os serviços do estúdio, com o mesmo cuidado: marca, produto e site, sem ruído. Desenhamos com pouco, mas bem feito.</p>
 
   <section class="service">
-    <h2>Identidade de marca</h2>
-    <p>Uma marca clara, que se reconhece à primeira vista.</p>
-    <p class="price">A partir de 25.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-marca.jpg" alt="Identidade de marca MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Identidade de marca</h2>
+      <p>Uma marca clara, que se reconhece à primeira vista.</p>
+      <p class="price">A partir de 25.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Produto digital</h2>
-    <p>Uma aplicação simples de usar, do primeiro ecrã ao último.</p>
-    <p class="price">A partir de 30.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-app.jpg" alt="Produto digital MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Produto digital</h2>
+      <p>Uma aplicação simples de usar, do primeiro ecrã ao último.</p>
+      <p class="price">A partir de 30.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Websites</h2>
-    <p>Um site limpo, rápido de ler e fácil de navegar.</p>
-    <p class="price">A partir de 35.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-site.jpg" alt="Websites MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Websites</h2>
+      <p>Um site limpo, rápido de ler e fácil de navegar.</p>
+      <p class="price">A partir de 35.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Editorial</h2>
-    <p>Páginas com espaço para respirar e uma história para contar.</p>
-    <p class="price">A partir de 18.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-editorial.jpg" alt="Editorial MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Editorial</h2>
+      <p>Páginas com espaço para respirar e uma história para contar.</p>
+      <p class="price">A partir de 18.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Embalagem</h2>
-    <p>Embalagem com design gráfico próprio, com espaço, clareza e rigor.</p>
-    <p class="price">A partir de 15.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-embalagem.jpg" alt="Embalagem MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Embalagem</h2>
+      <p>Embalagem com design gráfico próprio, com espaço, clareza e rigor.</p>
+      <p class="price">A partir de 15.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Redes sociais</h2>
-    <p>Redes sociais com design gráfico próprio, com espaço, clareza e rigor.</p>
-    <p class="price">A partir de 12.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-redes.jpg" alt="Redes sociais MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Redes sociais</h2>
+      <p>Redes sociais com design gráfico próprio, com espaço, clareza e rigor.</p>
+      <p class="price">A partir de 12.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Catálogo</h2>
-    <p>Catálogo com design gráfico próprio, com espaço, clareza e rigor.</p>
-    <p class="price">A partir de 20.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-catalogo.jpg" alt="Catálogo MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Catálogo</h2>
+      <p>Catálogo com design gráfico próprio, com espaço, clareza e rigor.</p>
+      <p class="price">A partir de 20.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Livraria</h2>
-    <p>Livros e leitura, com espaço para descobrir.</p>
-    <p class="price">A partir de 10.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><video src="media/mira-video-3.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Livraria MIRA"></video></div>
+    <div class="body">
+      <h2>Livraria</h2>
+      <p>Livros e leitura, com espaço para descobrir.</p>
+      <p class="price">A partir de 10.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Edição e publicação de livros</h2>
-    <p>Do manuscrito ao livro, com design gráfico e impressões cuidadas.</p>
-    <p class="price">A partir de 22.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><video src="media/mira-video-1.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Edição e publicação de livros MIRA"></video></div>
+    <div class="body">
+      <h2>Edição e publicação de livros</h2>
+      <p>Do manuscrito ao livro, com design gráfico e impressões cuidadas.</p>
+      <p class="price">A partir de 22.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Papelaria</h2>
-    <p>Papelaria de todos os dias, com design gráfico e impressões próprias. Cadernos e papelaria, simples e bem feitos.</p>
-    <p class="price">A partir de 8.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-cadernos.jpg" alt="Papelaria MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Papelaria</h2>
+      <p>Papelaria de todos os dias, com design gráfico e impressões próprias. Cadernos e papelaria, simples e bem feitos.</p>
+      <p class="price">A partir de 8.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Material escolar</h2>
-    <p>Material escolar para a escola e para casa. Mochilas e material escolar para o novo ano.</p>
-    <p class="price">A partir de 9.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-material.jpg" alt="Material escolar MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Material escolar</h2>
+      <p>Material escolar para a escola e para casa. Mochilas e material escolar para o novo ano.</p>
+      <p class="price">A partir de 9.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Direcção de arte</h2>
-    <p>Direcção de arte com espaço, clareza e rigor, do pedido ao sistema final.</p>
-    <p class="price">A partir de 20.000 MT</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-sobre-2.jpg" alt="Direcção de arte MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Direcção de arte</h2>
+      <p>Direcção de arte com espaço, clareza e rigor, do pedido ao sistema final.</p>
+      <p class="price">A partir de 20.000 MT</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <section class="service">
-    <h2>Acompanhamento e evolução do site</h2>
-    <p>Depois de entregar, acompanhamos o uso e ajustamos o que for preciso.</p>
-    <p class="price">A partir de 10.000 MT/mês</p>
-    <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    <div class="media"><img src="images/mira-mochila.jpg" alt="Acompanhamento e evolução do site MIRA" loading="lazy" decoding="async"></div>
+    <div class="body">
+      <h2>Acompanhamento e evolução do site</h2>
+      <p>Depois de entregar, acompanhamos o uso e ajustamos o que for preciso.</p>
+      <p class="price">A partir de 10.000 MT/mês</p>
+      <a class="cta" href="index.html#contact">Fale com a MIRA →</a>
+    </div>
   </section>
 
   <footer>
     <p>O resto da história é uma conversa.</p>
-    <a href="index.html">← Voltar à página inicial</a><br>
-    <a href="index.html#contact">Fale com a MIRA →</a>
+    <a class="btn" href="index.html">← Voltar à página inicial</a>
+    <a class="btn btn-light" href="index.html#contact">Fale com a MIRA →</a>
   </footer>
 </div>
 <script src="js/chat.js" defer></script>
