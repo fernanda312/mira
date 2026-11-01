@@ -623,4 +623,4 @@ header.identity-rail .mira-wordmark{color:#ffffff!important}
 
 /* Botão discreto do admin no final do site. */
 .mira-site-footer{text-align:center;padding:2rem 1rem 4rem!important}
-.mira-site-footer a{color:#888888!important;font-size:.8rem!important;text-decoration:none!important}
+.mira-site-footer a{color:#bbbbbb!important;font-size:.9rem!important;text-decoration:none!important;border:1px solid #333333!important;border-radius:999px!important;padding:.5rem 1.4rem!important;background:#111111!important;display:inline-block!important}
