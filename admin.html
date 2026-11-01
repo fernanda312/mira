@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
+<video class="admin-bg-video" src="media/mira-fundo.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
 <header class="topbar">
   <div>
     <strong class="brand">MIRA</strong>
@@ -22,16 +23,14 @@
 </header>
 
 <main class="wrap">
-  <!-- GATE: sem palavra-passe guardada no código. Só regista quem está a usar esta sessão. -->
   <section id="gate" class="card">
     <h1>Entrar no painel</h1>
-    <p>Escreve o email do administrador do site. Não há nenhuma palavra-passe guardada neste ficheiro — este acesso simples serve para uso neste dispositivo. Para uso real, com vários dispositivos e com os dados guardados fora do navegador, é preciso ligar o Supabase (ver a secção “Como funciona” em baixo).</p>
+    <p>Escreve o email do administrador do site para entrar no painel.</p>
     <form id="gateForm">
       <label for="adminEmail">Email do administrador</label>
       <input type="email" id="adminEmail" required placeholder="o teu email de administrador">
       <button class="btn btn-primary" type="submit">Entrar no painel</button>
     </form>
-    <p class="help">A sessão fica guardada neste navegador. Ao fechares a aba e voltares depois, continuas com a sessão, até carregares em “Sair”. Nenhum email é inventado aqui: o campo começa vazio.</p>
   </section>
 
   <div id="app" hidden>
@@ -59,7 +58,7 @@
       <h2>Como funciona, de ponta a ponta</h2>
       <p class="lead">O comprador do site muda tudo aqui, sem tocar em código e sem depender de quem vendeu. Cada secção guarda logo que carregas em <strong>Guardar</strong>.</p>
       <ol class="steps">
-        <li><strong>1. Entra</strong> com o teu email de administrador. A sessão fica guardada neste navegador, até carregares em “Sair” (vê também a secção “Sessão”).</li>
+        <li><strong>1. Entra</strong> com o teu email de administrador.</li>
         <li><strong>2. Escolhe uma secção</strong> nos botões em cima: imagens, vídeos, textos, serviços, preços, menu, contacto, sessão, chats, pedidos, clientes e visitantes.</li>
         <li><strong>3. Edita e guarda.</strong> Imagens e vídeos entram sempre por ficheiro (botão “Escolher ficheiro”), nunca por link. Vês a pré-visualização antes de guardar.</li>
         <li><strong>4. Confere no site.</strong> Depois de guardar, abre o site e vê a mudança. Se não aparecer, recarrega a página.</li>
@@ -67,16 +66,6 @@
       </ol>
       <h3>Resumo rápido</h3>
       <div id="summary" class="summary"></div>
-      <h3>O que ainda falta para o uso ao vivo, em vários dispositivos</h3>
-      <p>Neste momento os dados ficam guardados neste navegador (localStorage). Isso chega para gerir o site neste dispositivo, mas para o site ao vivo, com clientes a escrever de vários telemóveis, é preciso ligar o Supabase. O que é preciso, por ordem:</p>
-      <ol class="steps">
-        <li>Criar um projeto Supabase e copiar a chave pública (anon) e o endereço do projeto.</li>
-        <li>Criar as tabelas: definições do site, logos, trabalhos, marcas, o que fazemos, serviços, contactos, chats, pedidos e clientes — com as mesmas colunas que este painel já usa.</li>
-        <li>Criar um balde de ficheiros (bucket) no Supabase Storage para as imagens e vídeos, com leitura pública e escrita só do administrador.</li>
-        <li>Criar a conta do administrador no Supabase Auth com o email que usas aqui, e desligar a confirmação por email se for preciso para a primeira entrada.</li>
-        <li>Trocar, no código do site, a leitura/escrita de localStorage pela leitura/escrita do Supabase, mantendo os mesmos nomes de campos. Nenhuma chave secreta deve ficar escrita nestes ficheiros.</li>
-      </ol>
-      <p class="help">Até esse passo estar feito, não prometas a clientes que uma mensagem escrita noutro telemóvel aparece aqui: as mensagens e os dados deste painel vivem neste navegador.</p>
     </section>
 
     <section id="sec-logo-hero" class="panel" hidden>
@@ -90,7 +79,7 @@
           <img id="heroPreview" alt="Pré-visualização do hero">
           <div>
             <input type="file" id="heroFile" accept="image/*">
-            <p class="help">Ficheiros grandes ocupam muito espaço no navegador. Se possível, usa imagens até 2 MB. O limite do armazenamento do navegador é de cerca de 5 MB no total para todos os dados do painel.</p>
+            <p class="help">Escolhe uma imagem do teu telemóvel ou computador.</p>
           </div>
         </div>
         <label>Vídeo de fundo do site (ficheiro)</label>
@@ -227,7 +216,7 @@
 
     <section id="sec-servicos" class="panel" hidden>
       <h2>Serviços e preços</h2>
-      <p class="help">A lista completa de serviços e preços em meticais (MT). Estes são os mesmos preços da página de Serviços — muda aqui e muda na página. Cada serviço tem também a sua imagem ou vídeo do cartão, sempre por ficheiro, nunca por link: usa “Trocar ficheiro” em cada linha. Os preços começam com os valores que a dona do site vai ajustar depois.</p>
+      <p class="help">A lista completa de serviços e preços em meticais (MT). Estes são os mesmos preços da página de Serviços — muda aqui e muda na página. Cada serviço tem também a sua imagem ou vídeo do cartão, sempre por ficheiro, nunca por link: usa “Trocar ficheiro” em cada linha.</p>
       <div id="servicesTable"></div>
       <h3>Adicionar serviço</h3>
       <form id="serviceAddForm" class="inline-form">
@@ -286,7 +275,7 @@
 
     <section id="sec-sessao" class="panel" hidden>
       <h2>Sessão</h2>
-      <p class="help">A sessão deste painel fica guardada neste navegador, até carregares em “Terminar sessão” ou em “Sair” no topo. Não há nenhuma palavra-passe guardada neste ficheiro — a sessão é só o email do administrador.</p>
+      <p class="help">Vê a tua sessão atual, muda o email ou termina a sessão.</p>
       <div id="sessionInfo"></div>
       <form id="sessionChangeForm">
         <label for="sessionNewEmail">Mudar o email da sessão</label>
@@ -299,7 +288,6 @@
     <section id="sec-chats" class="panel" hidden>
       <h2>Chats — mensagens dos visitantes</h2>
       <p class="help">As mensagens que os visitantes escrevem no chat do site aparecem aqui. Responde em cada conversa: a tua resposta fica guardada e aparece ao visitante como resposta do estúdio. Novas conversas ficam marcadas como “Nova” até responderes.</p>
-      <button class="btn" type="button" id="chatTestBtn">Mensagem de teste (só para ver como funciona)</button>
       <button class="btn" type="button" id="chatRefreshBtn">Atualizar lista</button>
       <div id="chatsList"></div>
     </section>
@@ -318,7 +306,7 @@
 
     <section id="sec-clientes" class="panel" hidden>
       <h2>Clientes</h2>
-      <p class="help">A tua lista de clientes, com contacto e notas. Nada aqui é inventado: começa vazia, exceto se já tiveres guardado clientes antes.</p>
+      <p class="help">A tua lista de clientes, com contacto e notas.</p>
       <form id="clientAddForm" class="inline-form">
         <label>Nome <input type="text" id="clientAddName" required></label>
         <label>Contacto <input type="text" id="clientAddContact"></label>
@@ -330,7 +318,7 @@
 
     <section id="sec-visitantes" class="panel" hidden>
       <h2>Visitantes</h2>
-      <p class="help">Contagem simples de visitas por página, guardada neste painel. Para contagem automática ao vivo é preciso o Supabase (ver “Início”). Podes corrigir os números à mão e guardar.</p>
+      <p class="help">Contagem de visitas por página. Podes corrigir os números à mão e guardar.</p>
       <form id="visitorsForm">
         <div id="visitorsList"></div>
         <button class="btn btn-primary" type="submit">Guardar contagens</button>
