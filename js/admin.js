@@ -235,7 +235,7 @@
         sec.insertBefore(back, sec.firstChild);
       }
     }
-    document.querySelectorAll(".nav-item").forEach(function (b) {
+    document.querySelectorAll(".nav-item, .area-btn").forEach(function (b) {
       b.classList.toggle("active", b.getAttribute("data-sec") === id);
     });
     var list = $("sectionsList");
@@ -256,7 +256,7 @@
       "<span>" + S.clients.length + " clientes</span>" +
       "<span>" + fresh + " chats por responder</span>";
   }
-  document.querySelectorAll(".nav-item").forEach(function (b) {
+  document.querySelectorAll(".nav-item, .area-btn").forEach(function (b) {
     b.addEventListener("click", function () { showSection(b.getAttribute("data-sec")); });
   });
   $("sectionsBtn").addEventListener("click", function () {
