@@ -48,7 +48,7 @@
   function init() {
     var style = document.createElement("style");
     style.textContent =
-      "#mira-chat-btn{position:fixed;right:1rem;bottom:1rem;z-index:9999;background:#0b3d2e;color:#fff;border:1px solid #0b3d2e;border-radius:999px;padding:.8rem 1.4rem;font:700 1rem Inter,system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.5);}" +
+      "#mira-chat-btn{position:fixed;right:1rem;bottom:1rem;z-index:9999;width:56px;height:56px;background:#0b3d2e;color:#fff;border:1px solid #0b3d2e;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;font-size:26px;line-height:1;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.5);}" +
       "#mira-chat-btn:hover{background:#145a44;}" +
       "#mira-chat-panel{position:fixed;right:1rem;bottom:4.5rem;z-index:9999;width:min(360px,92vw);background:#121212;color:#fff;border:1px solid #2b2b2b;border-radius:16px;padding:1rem;font:1rem Inter,system-ui,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.6);}" +
       "#mira-chat-list{max-height:280px;overflow-y:auto;margin:.5rem 0;}" +
@@ -60,7 +60,8 @@
     var btn = document.createElement("button");
     btn.id = "mira-chat-btn";
     btn.type = "button";
-    btn.textContent = "Falar connosco";
+    btn.textContent = "💬";
+    btn.setAttribute("aria-label", "Falar connosco");
     var panel = document.createElement("div");
     panel.id = "mira-chat-panel";
     panel.hidden = true;
