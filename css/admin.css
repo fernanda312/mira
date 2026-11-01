@@ -155,3 +155,13 @@ td video.thumb, video.thumb {
   .tab-btn { padding: .55rem .9rem; }
   table { min-width: 560px; }
 }
+
+/* Rodapé do painel: botões grandes, descritos, mesmo fundo e tipologia. */
+.admin-footer { margin-top: 1.5rem; }
+.admin-footer h2 { font-family: "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; }
+.footer-actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin: 1rem 0; }
+.btn-big { padding: .9rem 1.8rem; font-size: 1.05rem; }
+@media (max-width: 768px) {
+  .footer-actions .btn, .footer-actions .btn-big { width: 100%; text-align: center; }
+  .service .body .cta, .service .body .btn-orcamento { width: 100%; }
+}
