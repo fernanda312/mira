@@ -31,7 +31,7 @@
       <input type="email" id="adminEmail" required placeholder="o teu email de administrador">
       <button class="btn btn-primary" type="submit">Entrar no painel</button>
     </form>
-    <p class="help">A sessão fica guardada só nesta aba do navegador (sessionStorage). Ao fechar a aba, tens de voltar a escrever o email. Nenhum email é inventado aqui: o campo começa vazio.</p>
+    <p class="help">A sessão fica guardada neste navegador. Ao fechares a aba e voltares depois, continuas com a sessão, até carregares em “Sair”. Nenhum email é inventado aqui: o campo começa vazio.</p>
   </section>
 
   <div id="app" hidden>
@@ -42,9 +42,13 @@
       <button class="tab-btn" type="button" data-sec="trabalhos">Trabalhos</button>
       <button class="tab-btn" type="button" data-sec="marcas">Faixa de marcas</button>
       <button class="tab-btn" type="button" data-sec="fazemos">O que fazemos</button>
+      <button class="tab-btn" type="button" data-sec="sobre-fotos">Sobre — Fotos</button>
+      <button class="tab-btn" type="button" data-sec="pormenores">Pormenores</button>
       <button class="tab-btn" type="button" data-sec="textos">Sobre e Percurso</button>
       <button class="tab-btn" type="button" data-sec="servicos">Serviços e preços</button>
+      <button class="tab-btn" type="button" data-sec="menu">Menu</button>
       <button class="tab-btn" type="button" data-sec="contacto">Contacto e WhatsApp</button>
+      <button class="tab-btn" type="button" data-sec="sessao">Sessão</button>
       <button class="tab-btn" type="button" data-sec="chats">Chats</button>
       <button class="tab-btn" type="button" data-sec="pedidos">Pedidos</button>
       <button class="tab-btn" type="button" data-sec="clientes">Clientes</button>
@@ -55,8 +59,8 @@
       <h2>Como funciona, de ponta a ponta</h2>
       <p class="lead">O comprador do site muda tudo aqui, sem tocar em código e sem depender de quem vendeu. Cada secção guarda logo que carregas em <strong>Guardar</strong>.</p>
       <ol class="steps">
-        <li><strong>1. Entra</strong> com o teu email de administrador. A sessão fica só nesta aba.</li>
-        <li><strong>2. Escolhe uma secção</strong> nos botões em cima: imagens, textos, serviços, preços, contacto, chats, pedidos, clientes e visitantes.</li>
+        <li><strong>1. Entra</strong> com o teu email de administrador. A sessão fica guardada neste navegador, até carregares em “Sair” (vê também a secção “Sessão”).</li>
+        <li><strong>2. Escolhe uma secção</strong> nos botões em cima: imagens, vídeos, textos, serviços, preços, menu, contacto, sessão, chats, pedidos, clientes e visitantes.</li>
         <li><strong>3. Edita e guarda.</strong> Imagens e vídeos entram sempre por ficheiro (botão “Escolher ficheiro”), nunca por link. Vês a pré-visualização antes de guardar.</li>
         <li><strong>4. Confere no site.</strong> Depois de guardar, abre o site e vê a mudança. Se não aparecer, recarrega a página.</li>
         <li><strong>5. Faz cópia.</strong> Usa “Exportar cópia (JSON)” no topo para guardar tudo num ficheiro. Se alguma coisa correr mal, “Importar cópia” repõe tudo.</li>
@@ -87,6 +91,14 @@
           <div>
             <input type="file" id="heroFile" accept="image/*">
             <p class="help">Ficheiros grandes ocupam muito espaço no navegador. Se possível, usa imagens até 2 MB. O limite do armazenamento do navegador é de cerca de 5 MB no total para todos os dados do painel.</p>
+          </div>
+        </div>
+        <label>Vídeo de fundo do site (ficheiro)</label>
+        <div class="preview-row">
+          <video id="bgVideoPreview" muted loop playsinline preload="metadata" style="max-width:220px;"></video>
+          <div>
+            <input type="file" id="bgVideoFile" accept="video/*">
+            <p class="help">Este é o vídeo de fundo que passa em todo o site, por trás das secções. Escolhe um ficheiro de vídeo no teu telemóvel ou computador — nunca escrevas um link. Sem ficheiro novo, fica o vídeo atual.</p>
           </div>
         </div>
         <button class="btn btn-primary" type="submit">Guardar logo e hero</button>
@@ -141,6 +153,52 @@
       </form>
     </section>
 
+
+    <section id="sec-sobre-fotos" class="panel" hidden>
+      <h2>Sobre — Fotos</h2>
+      <p class="help">As fotografias da secção Sobre e da janela de fotografias do estúdio. Cada foto é trocada por ficheiro, com pré-visualização antes de guardar — nunca por link.</p>
+      <form id="aboutPhotosForm">
+        <label>Foto Sobre 1 (lado direito, em cima)</label>
+        <div class="preview-row">
+          <img id="aboutPhoto1Preview" alt="Pré-visualização da Foto Sobre 1">
+          <div><input type="file" id="aboutPhoto1File" accept="image/*"></div>
+        </div>
+        <label>Foto Equipa (lado esquerdo)</label>
+        <div class="preview-row">
+          <img id="aboutPhoto2Preview" alt="Pré-visualização da Foto Equipa">
+          <div><input type="file" id="aboutPhoto2File" accept="image/*"></div>
+        </div>
+        <label>Foto Sobre 2 (foto grande e janela do estúdio)</label>
+        <div class="preview-row">
+          <img id="aboutPhoto3Preview" alt="Pré-visualização da Foto Sobre 2">
+          <div><input type="file" id="aboutPhoto3File" accept="image/*"></div>
+        </div>
+        <button class="btn btn-primary" type="submit">Guardar fotos do Sobre</button>
+      </form>
+    </section>
+
+    <section id="sec-pormenores" class="panel" hidden>
+      <h2>Pormenores</h2>
+      <p class="help">O título e os três pontos da secção Pormenores. Escreve, guarda, e confere no site.</p>
+      <form id="detailsForm">
+        <label for="detailsTitle">Título da secção Pormenores</label>
+        <input type="text" id="detailsTitle">
+        <label for="detailsItem0Title">Ponto 1 — título</label>
+        <input type="text" id="detailsItem0Title">
+        <label for="detailsItem0Desc">Ponto 1 — descrição</label>
+        <textarea id="detailsItem0Desc" rows="2"></textarea>
+        <label for="detailsItem1Title">Ponto 2 — título</label>
+        <input type="text" id="detailsItem1Title">
+        <label for="detailsItem1Desc">Ponto 2 — descrição</label>
+        <textarea id="detailsItem1Desc" rows="2"></textarea>
+        <label for="detailsItem2Title">Ponto 3 — título</label>
+        <input type="text" id="detailsItem2Title">
+        <label for="detailsItem2Desc">Ponto 3 — descrição</label>
+        <textarea id="detailsItem2Desc" rows="2"></textarea>
+        <button class="btn btn-primary" type="submit">Guardar pormenores</button>
+      </form>
+    </section>
+
     <section id="sec-textos" class="panel" hidden>
       <h2>Sobre e Percurso</h2>
       <p class="help">Os textos longos do site. Escreve, guarda, e confere no site.</p>
@@ -151,13 +209,25 @@
         <textarea id="aboutText" rows="5"></textarea>
         <label for="servicesIntro">Texto de introdução dos Serviços</label>
         <textarea id="servicesIntro" rows="3"></textarea>
+        <label for="aboutMore">Texto “mais” da secção Sobre (o parágrafo depois do texto principal)</label>
+        <textarea id="aboutMore" rows="4"></textarea>
+        <label for="percursoStep1">Percurso — passo 1</label>
+        <input type="text" id="percursoStep1">
+        <label for="percursoStep2">Percurso — passo 2</label>
+        <input type="text" id="percursoStep2">
+        <label for="percursoStep3">Percurso — passo 3</label>
+        <input type="text" id="percursoStep3">
+        <label for="quoteText">Frase em destaque (Sobre)</label>
+        <input type="text" id="quoteText">
+        <label for="quoteAttribution">Assinatura da frase em destaque</label>
+        <input type="text" id="quoteAttribution">
         <button class="btn btn-primary" type="submit">Guardar textos</button>
       </form>
     </section>
 
     <section id="sec-servicos" class="panel" hidden>
       <h2>Serviços e preços</h2>
-      <p class="help">A lista completa de serviços e preços em meticais (MT). Estes são os mesmos preços da página de Serviços — muda aqui e muda na página. Os preços começam com os valores que a dona do site vai ajustar depois.</p>
+      <p class="help">A lista completa de serviços e preços em meticais (MT). Estes são os mesmos preços da página de Serviços — muda aqui e muda na página. Cada serviço tem também a sua imagem ou vídeo do cartão, sempre por ficheiro, nunca por link: usa “Trocar ficheiro” em cada linha. Os preços começam com os valores que a dona do site vai ajustar depois.</p>
       <div id="servicesTable"></div>
       <h3>Adicionar serviço</h3>
       <form id="serviceAddForm" class="inline-form">
@@ -165,7 +235,31 @@
         <label>Descrição <input type="text" id="serviceAddDesc" required></label>
         <label>Preço (MT) <input type="number" id="serviceAddPrice" min="0" step="100" required></label>
         <label><input type="checkbox" id="serviceAddMonthly"> Preço mensal</label>
+        <label>Ficheiro da imagem ou vídeo do cartão (opcional) <input type="file" id="serviceAddFile" accept="image/*,video/*"></label>
         <button class="btn btn-primary" type="submit">Adicionar serviço</button>
+      </form>
+    </section>
+
+
+    <section id="sec-menu" class="panel" hidden>
+      <h2>Menu</h2>
+      <p class="help">As imagens e os títulos dos cartões do menu, e as palavras da barra de navegação. Cada imagem é trocada por ficheiro, com pré-visualização — nunca por link.</p>
+      <form id="menuForm">
+        <div id="menuTilesList"></div>
+        <h3>Palavras da barra de navegação</h3>
+        <label for="navTrabalhos">Navegação — 1</label>
+        <input type="text" id="navTrabalhos">
+        <label for="navFazemos">Navegação — 2</label>
+        <input type="text" id="navFazemos">
+        <label for="navPormenores">Navegação — 3</label>
+        <input type="text" id="navPormenores">
+        <label for="navSobre">Navegação — 4</label>
+        <input type="text" id="navSobre">
+        <label for="navPercurso">Navegação — 5</label>
+        <input type="text" id="navPercurso">
+        <label for="navServicos">Navegação — 6</label>
+        <input type="text" id="navServicos">
+        <button class="btn btn-primary" type="submit">Guardar menu</button>
       </form>
     </section>
 
@@ -179,8 +273,27 @@
         <input type="tel" id="whatsapp" placeholder="+258 …">
         <label for="contactNote">Nota para os visitantes</label>
         <textarea id="contactNote" rows="3"></textarea>
+        <label for="contactLinkedin">LinkedIn (ligação completa, por exemplo https://www.linkedin.com/…)</label>
+        <input type="text" id="contactLinkedin" placeholder="https://…">
+        <label for="contactX">X (ligação completa, por exemplo https://x.com/…)</label>
+        <input type="text" id="contactX" placeholder="https://…">
+        <label for="contactEmail">Email de contacto (só é usado se preencheres; nunca é inventado)</label>
+        <input type="email" id="contactEmail" placeholder="o email do estúdio">
         <button class="btn btn-primary" type="submit">Guardar contacto</button>
       </form>
+    </section>
+
+
+    <section id="sec-sessao" class="panel" hidden>
+      <h2>Sessão</h2>
+      <p class="help">A sessão deste painel fica guardada neste navegador, até carregares em “Terminar sessão” ou em “Sair” no topo. Não há nenhuma palavra-passe guardada neste ficheiro — a sessão é só o email do administrador.</p>
+      <div id="sessionInfo"></div>
+      <form id="sessionChangeForm">
+        <label for="sessionNewEmail">Mudar o email da sessão</label>
+        <input type="email" id="sessionNewEmail" required placeholder="o novo email de administrador">
+        <button class="btn btn-primary" type="submit">Guardar novo email e continuar</button>
+      </form>
+      <button class="btn btn-danger" type="button" id="sessionEndBtn">Terminar sessão</button>
     </section>
 
     <section id="sec-chats" class="panel" hidden>
