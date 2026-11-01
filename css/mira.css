@@ -561,3 +561,20 @@ section.mira-work#trabalhos,
     padding-right: 1.5rem !important;
   }
 }
+
+/* MIRA menu 2026-11-01 — correção da dona ("Mal feito", captura do menu no telemóvel):
+   o véu cinzento do menu lavava o preto e deixava tudo cinzento, as secções
+   pareciam texto solto e o botão do chat tapava o contacto no fundo. */
+.menu-sheet{background:linear-gradient(to bottom,#000000 0%,#0b3d2e 100%)!important;color:#ffffff!important;padding-bottom:120px!important}
+.menu-glass{display:none!important;background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;opacity:0!important}
+.menu-tiles{gap:1rem!important}
+.menu-tile{background:#141414!important;border:1px solid #2b2b2b!important;border-radius:16px!important;padding:.5rem!important}
+.menu-tile-media{object-fit:contain!important;background:#000000!important;border-radius:12px!important}
+.menu-tile-title{font-family:"Source Serif 4",Georgia,serif!important;font-size:1.1rem!important;color:#ffffff!important;padding:.5rem .25rem .25rem!important}
+.menu-sections{border-top:1px solid #2b2b2b!important;padding-top:1rem!important}
+.menu-sections li{border-bottom:1px solid #2b2b2b!important}
+.menu-section{font-family:"Source Serif 4",Georgia,serif!important;font-size:1.6rem!important;line-height:1.2!important;color:#ffffff!important;padding:.75rem 0!important;display:block!important}
+.menu-contact{flex-wrap:wrap!important;gap:.75rem!important;padding-bottom:2rem!important}
+.menu-contact-mail{background:linear-gradient(135deg,#0b3d2e,#22c55e)!important;background-color:transparent!important;color:#ffffff!important;border:0!important;box-shadow:0 8px 24px rgba(34,197,94,.35)!important}
+.menu-contact-mail span{color:#ffffff!important}
+body:has(.menu-sheet[data-open="true"]) #mira-chat-btn{display:none!important}
