@@ -9,9 +9,6 @@
      mira_chat_messages, com nome, mensagem e hora.
    - As respostas do estúdio, escritas no painel de administração, ficam em
      mira_chat_replies e aparecem na conversa como resposta do estúdio.
-   - Para mensagens ao vivo entre vários dispositivos é preciso o Supabase
-     (ver o painel de administração, secção Início). Até lá, as mensagens
-     vivem no navegador de quem escreveu.
    - Não há nenhum email, número ou contacto inventado neste ficheiro. */
 (function () {
   "use strict";
@@ -57,6 +54,35 @@
       "#mira-chat-send:hover{background:#145a44;}";
     document.head.appendChild(style);
 
+    function whatsappDigits() {
+      try {
+        var c = JSON.parse(localStorage.getItem("mira_admin_contact") || "{}");
+        var d = String(c.whatsapp || "").replace(/\D/g, "");
+        return d.length >= 9 ? d : "";
+      } catch (e) { return ""; }
+    }
+    function openChat(service) {
+      panel.hidden = false;
+      if (service) {
+        try { sessionStorage.setItem("mira_last_service", service); } catch (e) {}
+        var ta = panel.querySelector("#mira-chat-text");
+        if (ta && !ta.value) ta.value = "Quero saber mais sobre " + service + ".";
+      }
+      // WhatsApp link, only when the buyer has filled a real number in admin.
+      var wa = whatsappDigits();
+      var old = panel.querySelector("#mira-chat-wa");
+      if (wa && !old) {
+        var a = document.createElement("a");
+        a.id = "mira-chat-wa";
+        a.href = "https://wa.me/" + wa + "?text=" + encodeURIComponent("Olá MIRA, quero falar convosco.");
+        a.target = "_blank"; a.rel = "noopener noreferrer";
+        a.textContent = "Continuar no WhatsApp →";
+        a.style.cssText = "display:block;text-align:center;background:linear-gradient(135deg,#0b3d2e,#22c55e);color:#fff;font-weight:700;border-radius:999px;padding:.65rem 1.3rem;margin:.5rem 0;text-decoration:none;";
+        panel.appendChild(a);
+      }
+      render(list);
+    }
+    window.__miraOpenChat = openChat;
     var btn = document.createElement("button");
     btn.id = "mira-chat-btn";
     btn.type = "button";
@@ -78,16 +104,34 @@
     document.body.appendChild(panel);
     var list = panel.querySelector("#mira-chat-list");
     btn.addEventListener("click", function () {
-      panel.hidden = !panel.hidden;
-      if (!panel.hidden) render(list);
+      if (panel.hidden) { openChat(); } else { panel.hidden = true; }
     });
+    // Service chosen on servicos.html: open the chat with that service prefilled.
+    try {
+      var pending = sessionStorage.getItem("mira_pending_service");
+      if (pending) {
+        sessionStorage.removeItem("mira_pending_service");
+        setTimeout(function () { openChat(pending); }, 300);
+      }
+    } catch (e) {}
     panel.querySelector("#mira-chat-send").addEventListener("click", function () {
       var name = panel.querySelector("#mira-chat-name").value.trim();
       var text = panel.querySelector("#mira-chat-text").value.trim();
       if (!text) return;
       var msgs = load(MSG_KEY, []);
-      msgs.push({ id: Date.now(), name: name || "Visitante", message: text, time: new Date().toISOString() });
+      var msgId = Date.now();
+      msgs.push({ id: msgId, name: name || "Visitante", message: text, time: new Date().toISOString() });
       try { localStorage.setItem(MSG_KEY, JSON.stringify(msgs)); } catch (e) { /* armazenamento cheio */ }
+      // The same message also becomes an order in the admin, so the studio
+      // sees it in Chats and in Pedidos.
+      try {
+        var orders = JSON.parse(localStorage.getItem("mira_admin_orders") || "[]");
+        if (!Array.isArray(orders)) orders = [];
+        var svc = "";
+        try { svc = sessionStorage.getItem("mira_last_service") || ""; } catch (e) {}
+        orders.push({ name: name || "Visitante", service: svc || text, date: new Date().toISOString().slice(0, 10), status: "new" });
+        localStorage.setItem("mira_admin_orders", JSON.stringify(orders));
+      } catch (e) {}
       panel.querySelector("#mira-chat-text").value = "";
       render(list);
     });
