@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MIRA — Painel de Administração</title>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <strong class="brand">MIRA</strong>
+    <span class="brand-sub">Painel de Administração</span>
+  </div>
+  <div class="topbar-actions" id="topbarActions" hidden>
+    <span class="session-email" id="sessionEmail"></span>
+    <button class="btn" type="button" id="exportBtn">Exportar cópia (JSON)</button>
+    <label class="btn" for="importFile">Importar cópia (JSON)</label>
+    <input type="file" id="importFile" accept="application/json" hidden>
+    <button class="btn" type="button" id="logoutBtn">Sair</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- GATE: sem palavra-passe guardada no código. Só regista quem está a usar esta sessão. -->
+  <section id="gate" class="card">
+    <h1>Entrar no painel</h1>
+    <p>Escreve o email do administrador do site. Não há nenhuma palavra-passe guardada neste ficheiro — este acesso simples serve para uso neste dispositivo. Para uso real, com vários dispositivos e com os dados guardados fora do navegador, é preciso ligar o Supabase (ver a secção “Como funciona” em baixo).</p>
+    <form id="gateForm">
+      <label for="adminEmail">Email do administrador</label>
+      <input type="email" id="adminEmail" required placeholder="o teu email de administrador">
+      <button class="btn btn-primary" type="submit">Entrar no painel</button>
+    </form>
+    <p class="help">A sessão fica guardada só nesta aba do navegador (sessionStorage). Ao fechar a aba, tens de voltar a escrever o email. Nenhum email é inventado aqui: o campo começa vazio.</p>
+  </section>
+
+  <div id="app" hidden>
+    <nav class="tabs" aria-label="Secções do painel">
+      <button class="tab-btn" type="button" data-sec="inicio">Início</button>
+      <button class="tab-btn" type="button" data-sec="logo-hero">Logo e Hero</button>
+      <button class="tab-btn" type="button" data-sec="logos">Logos</button>
+      <button class="tab-btn" type="button" data-sec="trabalhos">Trabalhos</button>
+      <button class="tab-btn" type="button" data-sec="marcas">Faixa de marcas</button>
+      <button class="tab-btn" type="button" data-sec="fazemos">O que fazemos</button>
+      <button class="tab-btn" type="button" data-sec="textos">Sobre e Percurso</button>
+      <button class="tab-btn" type="button" data-sec="servicos">Serviços e preços</button>
+      <button class="tab-btn" type="button" data-sec="contacto">Contacto e WhatsApp</button>
+      <button class="tab-btn" type="button" data-sec="chats">Chats</button>
+      <button class="tab-btn" type="button" data-sec="pedidos">Pedidos</button>
+      <button class="tab-btn" type="button" data-sec="clientes">Clientes</button>
+      <button class="tab-btn" type="button" data-sec="visitantes">Visitantes</button>
+    </nav>
+
+    <section id="sec-inicio" class="panel">
+      <h2>Como funciona, de ponta a ponta</h2>
+      <p class="lead">O comprador do site muda tudo aqui, sem tocar em código e sem depender de quem vendeu. Cada secção guarda logo que carregas em <strong>Guardar</strong>.</p>
+      <ol class="steps">
+        <li><strong>1. Entra</strong> com o teu email de administrador. A sessão fica só nesta aba.</li>
+        <li><strong>2. Escolhe uma secção</strong> nos botões em cima: imagens, textos, serviços, preços, contacto, chats, pedidos, clientes e visitantes.</li>
+        <li><strong>3. Edita e guarda.</strong> Imagens e vídeos entram sempre por ficheiro (botão “Escolher ficheiro”), nunca por link. Vês a pré-visualização antes de guardar.</li>
+        <li><strong>4. Confere no site.</strong> Depois de guardar, abre o site e vê a mudança. Se não aparecer, recarrega a página.</li>
+        <li><strong>5. Faz cópia.</strong> Usa “Exportar cópia (JSON)” no topo para guardar tudo num ficheiro. Se alguma coisa correr mal, “Importar cópia” repõe tudo.</li>
+      </ol>
+      <h3>Resumo rápido</h3>
+      <div id="summary" class="summary"></div>
+      <h3>O que ainda falta para o uso ao vivo, em vários dispositivos</h3>
+      <p>Neste momento os dados ficam guardados neste navegador (localStorage). Isso chega para gerir o site neste dispositivo, mas para o site ao vivo, com clientes a escrever de vários telemóveis, é preciso ligar o Supabase. O que é preciso, por ordem:</p>
+      <ol class="steps">
+        <li>Criar um projeto Supabase e copiar a chave pública (anon) e o endereço do projeto.</li>
+        <li>Criar as tabelas: definições do site, logos, trabalhos, marcas, o que fazemos, serviços, contactos, chats, pedidos e clientes — com as mesmas colunas que este painel já usa.</li>
+        <li>Criar um balde de ficheiros (bucket) no Supabase Storage para as imagens e vídeos, com leitura pública e escrita só do administrador.</li>
+        <li>Criar a conta do administrador no Supabase Auth com o email que usas aqui, e desligar a confirmação por email se for preciso para a primeira entrada.</li>
+        <li>Trocar, no código do site, a leitura/escrita de localStorage pela leitura/escrita do Supabase, mantendo os mesmos nomes de campos. Nenhuma chave secreta deve ficar escrita nestes ficheiros.</li>
+      </ol>
+      <p class="help">Até esse passo estar feito, não prometas a clientes que uma mensagem escrita noutro telemóvel aparece aqui: as mensagens e os dados deste painel vivem neste navegador.</p>
+    </section>
+
+    <section id="sec-logo-hero" class="panel" hidden>
+      <h2>Logo e Hero</h2>
+      <p class="help">O título aparece no topo do site e no separador do navegador. A imagem do hero é a imagem grande do início do site. Escolhe o ficheiro no teu telemóvel ou computador — nunca escrevas um link.</p>
+      <form id="logoHeroForm">
+        <label for="siteTitle">Título do site</label>
+        <input type="text" id="siteTitle">
+        <label>Imagem do hero (ficheiro)</label>
+        <div class="preview-row">
+          <img id="heroPreview" alt="Pré-visualização do hero">
+          <div>
+            <input type="file" id="heroFile" accept="image/*">
+            <p class="help">Ficheiros grandes ocupam muito espaço no navegador. Se possível, usa imagens até 2 MB. O limite do armazenamento do navegador é de cerca de 5 MB no total para todos os dados do painel.</p>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Guardar logo e hero</button>
+      </form>
+    </section>
+
+    <section id="sec-logos" class="panel" hidden>
+      <h2>Logos dos clientes</h2>
+      <p class="help">Estas são as logos que passam debaixo do hero. Cada logo pode ser trocada por um ficheiro novo, removida, ou podes juntar uma logo nova.</p>
+      <div id="logosTable"></div>
+      <h3>Adicionar logo</h3>
+      <form id="logoAddForm" class="inline-form">
+        <label>Nome <input type="text" id="logoAddName" required></label>
+        <label>Ficheiro <input type="file" id="logoAddFile" accept="image/*" required></label>
+        <button class="btn btn-primary" type="submit">Adicionar logo</button>
+      </form>
+    </section>
+
+    <section id="sec-trabalhos" class="panel" hidden>
+      <h2>Trabalhos — faixa em scroll</h2>
+      <p class="help">Estas são as imagens que passam em scroll automático na secção de Trabalhos. Usa as setas para mudar a ordem, troca por ficheiro, remove ou adiciona imagens novas.</p>
+      <div id="marqueeTable"></div>
+      <h3>Adicionar imagem</h3>
+      <form id="marqueeAddForm" class="inline-form">
+        <label>Nome <input type="text" id="marqueeAddName" required></label>
+        <label>Ficheiro <input type="file" id="marqueeAddFile" accept="image/*" required></label>
+        <button class="btn btn-primary" type="submit">Adicionar imagem</button>
+      </form>
+    </section>
+
+    <section id="sec-marcas" class="panel" hidden>
+      <h2>Faixa de marcas</h2>
+      <p class="help">As palavras que passam na faixa preta (por exemplo: Design gráfico, Livraria, Papelaria). Edita cada linha, remove ou adiciona linhas novas, e guarda.</p>
+      <form id="brandsForm">
+        <div id="brandsList"></div>
+        <button class="btn" type="button" id="brandAddBtn">Adicionar linha</button>
+        <button class="btn btn-primary" type="submit">Guardar faixa</button>
+      </form>
+    </section>
+
+    <section id="sec-fazemos" class="panel" hidden>
+      <h2>O que fazemos</h2>
+      <p class="help">Os cartões da secção “O que fazemos”. Cada cartão tem tipo, título, descrição e uma imagem ou vídeo, sempre por ficheiro, nunca por link.</p>
+      <div id="fazemosTable"></div>
+      <h3>Adicionar cartão</h3>
+      <form id="fazemosAddForm" class="inline-form">
+        <label>Tipo <input type="text" id="fazemosAddType" required></label>
+        <label>Título <input type="text" id="fazemosAddTitle" required></label>
+        <label>Descrição <input type="text" id="fazemosAddDesc" required></label>
+        <label>Ficheiro (imagem ou vídeo) <input type="file" id="fazemosAddFile" accept="image/*,video/*" required></label>
+        <button class="btn btn-primary" type="submit">Adicionar cartão</button>
+      </form>
+    </section>
+
+    <section id="sec-textos" class="panel" hidden>
+      <h2>Sobre e Percurso</h2>
+      <p class="help">Os textos longos do site. Escreve, guarda, e confere no site.</p>
+      <form id="textsForm">
+        <label for="aboutHeading">Título da secção Sobre</label>
+        <input type="text" id="aboutHeading">
+        <label for="aboutText">Texto da secção Sobre</label>
+        <textarea id="aboutText" rows="5"></textarea>
+        <label for="servicesIntro">Texto de introdução dos Serviços</label>
+        <textarea id="servicesIntro" rows="3"></textarea>
+        <button class="btn btn-primary" type="submit">Guardar textos</button>
+      </form>
+    </section>
+
+    <section id="sec-servicos" class="panel" hidden>
+      <h2>Serviços e preços</h2>
+      <p class="help">A lista completa de serviços e preços em meticais (MT). Estes são os mesmos preços da página de Serviços — muda aqui e muda na página. Os preços começam com os valores que a dona do site vai ajustar depois.</p>
+      <div id="servicesTable"></div>
+      <h3>Adicionar serviço</h3>
+      <form id="serviceAddForm" class="inline-form">
+        <label>Nome <input type="text" id="serviceAddName" required></label>
+        <label>Descrição <input type="text" id="serviceAddDesc" required></label>
+        <label>Preço (MT) <input type="number" id="serviceAddPrice" min="0" step="100" required></label>
+        <label><input type="checkbox" id="serviceAddMonthly"> Preço mensal</label>
+        <button class="btn btn-primary" type="submit">Adicionar serviço</button>
+      </form>
+    </section>
+
+    <section id="sec-contacto" class="panel" hidden>
+      <h2>Contacto e WhatsApp</h2>
+      <p class="help">Preenche com os teus dados reais. O campo do WhatsApp começa vazio de propósito — não foi inventado nenhum número. Sem número, o botão de contacto do site mostra que o contacto ainda está por definir.</p>
+      <form id="contactForm">
+        <label for="contactHeading">Título da secção de contacto</label>
+        <input type="text" id="contactHeading">
+        <label for="whatsapp">Número de WhatsApp (só números, com indicativo do país)</label>
+        <input type="tel" id="whatsapp" placeholder="+258 …">
+        <label for="contactNote">Nota para os visitantes</label>
+        <textarea id="contactNote" rows="3"></textarea>
+        <button class="btn btn-primary" type="submit">Guardar contacto</button>
+      </form>
+    </section>
+
+    <section id="sec-chats" class="panel" hidden>
+      <h2>Chats — mensagens dos visitantes</h2>
+      <p class="help">As mensagens que os visitantes escrevem no chat do site aparecem aqui. Responde em cada conversa: a tua resposta fica guardada e aparece ao visitante como resposta do estúdio. Novas conversas ficam marcadas como “Nova” até responderes.</p>
+      <button class="btn" type="button" id="chatTestBtn">Mensagem de teste (só para ver como funciona)</button>
+      <button class="btn" type="button" id="chatRefreshBtn">Atualizar lista</button>
+      <div id="chatsList"></div>
+    </section>
+
+    <section id="sec-pedidos" class="panel" hidden>
+      <h2>Pedidos e reservas</h2>
+      <p class="help">Cada pedido tem nome, serviço, data e estado. Muda o estado na lista e ele fica guardado.</p>
+      <form id="orderAddForm" class="inline-form">
+        <label>Nome <input type="text" id="orderAddName" required></label>
+        <label>Serviço <input type="text" id="orderAddService" required></label>
+        <label>Data <input type="date" id="orderAddDate" required></label>
+        <button class="btn btn-primary" type="submit">Adicionar pedido</button>
+      </form>
+      <div id="ordersTable"></div>
+    </section>
+
+    <section id="sec-clientes" class="panel" hidden>
+      <h2>Clientes</h2>
+      <p class="help">A tua lista de clientes, com contacto e notas. Nada aqui é inventado: começa vazia, exceto se já tiveres guardado clientes antes.</p>
+      <form id="clientAddForm" class="inline-form">
+        <label>Nome <input type="text" id="clientAddName" required></label>
+        <label>Contacto <input type="text" id="clientAddContact"></label>
+        <label>Notas <input type="text" id="clientAddNotes"></label>
+        <button class="btn btn-primary" type="submit">Adicionar cliente</button>
+      </form>
+      <div id="clientsTable"></div>
+    </section>
+
+    <section id="sec-visitantes" class="panel" hidden>
+      <h2>Visitantes</h2>
+      <p class="help">Contagem simples de visitas por página, guardada neste painel. Para contagem automática ao vivo é preciso o Supabase (ver “Início”). Podes corrigir os números à mão e guardar.</p>
+      <form id="visitorsForm">
+        <div id="visitorsList"></div>
+        <button class="btn btn-primary" type="submit">Guardar contagens</button>
+      </form>
+    </section>
+  </div>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="js/admin.js" defer></script>
+</body>
+</html>
