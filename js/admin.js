@@ -199,14 +199,47 @@
     return '<img class="' + cls + '" src="' + esc(item.src) + '" alt="' + esc(item.name || item.title || "") + '">';
   };
 
+  /* ---------- Acesso: só o email do administrador ---------- */
+  /* SUPABASE TODO: quando o painel ligar à Supabase Auth, a palavra-passe
+     passa a ser verificada aí. Até lá não há nenhuma palavra-passe guardada
+     no código e nenhuma palavra-passe escrita no acesso é aceite ou guardada. */
+  var ADMIN_EMAIL = "lekoro7022@wiresummit.com";
+  function isAdminEmail(email) {
+    return String(email || "").trim().toLowerCase() === ADMIN_EMAIL;
+  }
+  function denyAccess() {
+    try { localStorage.removeItem("mira_admin_session"); } catch (e) { /* nada */ }
+    try { sessionStorage.removeItem("mira_admin_session"); } catch (e) { /* nada */ }
+    $("app").hidden = true;
+    $("topbarActions").hidden = true;
+    $("gate").hidden = false;
+    toast("Sem acesso a este painel.");
+  }
+
   /* ---------- Navegação e entrada ---------- */
   function showSection(id) {
     document.querySelectorAll(".panel").forEach(function (p) { p.hidden = true; });
     var sec = $("sec-" + id);
-    if (sec) sec.hidden = false;
-    document.querySelectorAll(".tab-btn").forEach(function (b) {
+    if (sec) {
+      sec.hidden = false;
+      if (!sec.querySelector(".back-to-sections")) {
+        var back = document.createElement("button");
+        back.type = "button";
+        back.className = "btn btn-secondary btn-small back-to-sections";
+        back.textContent = "← Todas as secções";
+        back.addEventListener("click", function () {
+          $("sectionsList").hidden = false;
+          $("sectionsBtn").setAttribute("aria-expanded", "true");
+          $("sectionsBtn").scrollIntoView();
+        });
+        sec.insertBefore(back, sec.firstChild);
+      }
+    }
+    document.querySelectorAll(".nav-item").forEach(function (b) {
       b.classList.toggle("active", b.getAttribute("data-sec") === id);
     });
+    var list = $("sectionsList");
+    if (list && window.innerWidth < 900) { list.hidden = true; $("sectionsBtn").setAttribute("aria-expanded", "false"); }
     renderSummary();
   }
   function renderSummary() {
@@ -223,8 +256,13 @@
       "<span>" + S.clients.length + " clientes</span>" +
       "<span>" + fresh + " chats por responder</span>";
   }
-  document.querySelectorAll(".tab-btn").forEach(function (b) {
+  document.querySelectorAll(".nav-item").forEach(function (b) {
     b.addEventListener("click", function () { showSection(b.getAttribute("data-sec")); });
+  });
+  $("sectionsBtn").addEventListener("click", function () {
+    var list = $("sectionsList");
+    list.hidden = !list.hidden;
+    $("sectionsBtn").setAttribute("aria-expanded", String(!list.hidden));
   });
   /* ---------- Sessão ---------- */
   function getSession() {
@@ -262,6 +300,10 @@
     e.preventDefault();
     var email = $("adminEmail").value.trim();
     if (!email || email.indexOf("@") < 1) { toast("Escreve um email válido."); return; }
+    if (!isAdminEmail(email)) { denyAccess(); return; }
+    /* Palavra-passe (campo adminPassword): ignorada por agora, nunca guardada.
+       Só fica ativa quando o painel ligar à Supabase Auth — ver nota no acesso. */
+    $("adminPassword").value = "";
     setSession(email);
     startApp(email);
     toast("Bem-vindo ao painel.");
@@ -271,6 +313,7 @@
     e.preventDefault();
     var email = $("sessionNewEmail").value.trim();
     if (!email || email.indexOf("@") < 1) { toast("Escreve um email válido."); return; }
+    if (!isAdminEmail(email)) { toast("Sem acesso a este painel."); fillSession(); return; }
     setSession(email);
     $("sessionEmail").textContent = email;
     fillSession();
@@ -282,7 +325,7 @@
     toast("Confere no site as mudanças que já guardaste em cada secção.");
     window.open("index.html", "_blank");
   });
-  $("switchSessionBtn").addEventListener("click", function () { endSession(); toast("Sessão terminada. Entra com outro email."); });
+  $("switchSessionBtn").addEventListener("click", function () { endSession(); toast("Sessão terminada."); });
   function startApp(email) {
     $("gate").hidden = true;
     $("app").hidden = false;
@@ -910,16 +953,21 @@
   /* ---------- Arranque ---------- */
   (function init() {
     var sess = getSession();
-    if (sess) { startApp(sess.email); return; }
-    /* Migração: uma sessão antiga passa
-       para localStorage, para continuar válida depois de fechar a aba. */
+    if (sess) {
+      if (isAdminEmail(sess.email)) { startApp(sess.email); return; }
+      denyAccess(); return;
+    }
+    /* Migração: uma sessão antiga passa para localStorage, só se for do
+       email do administrador; qualquer outra é apagada. */
     try {
       var legacy = sessionStorage.getItem("mira_admin_session");
       if (legacy) {
         var old = JSON.parse(legacy);
-        if (old && old.email) { setSession(old.email); startApp(old.email); return; }
+        if (old && isAdminEmail(old.email)) { setSession(old.email); startApp(old.email); return; }
       }
     } catch (e) { /* sessão danificada: volta ao acesso */ }
+    try { localStorage.removeItem("mira_admin_session"); } catch (e2) { /* nada */ }
+    try { sessionStorage.removeItem("mira_admin_session"); } catch (e3) { /* nada */ }
     $("gate").hidden = false;
     $("app").hidden = true;
     $("topbarActions").hidden = true;
